@@ -13,3 +13,11 @@ C:\Users\niamo\OneDrive\Bureau\Programme\S3(bis)\Conception Base Donnée\Projet\
 C:\Users\niamo\OneDrive\Bureau\Programme\S3(bis)\Conception Base Donnée\Projet\Salle-de-Sport\.git\Salle-de-Sport\obj\Debug\net10.0\Salle-de-Sport.pdb
 C:\Users\niamo\OneDrive\Bureau\Programme\S3(bis)\Conception Base Donnée\Projet\Salle-de-Sport\.git\Salle-de-Sport\obj\Debug\net10.0\Salle-de-Sport.genruntimeconfig.cache
 C:\Users\niamo\OneDrive\Bureau\Programme\S3(bis)\Conception Base Donnée\Projet\Salle-de-Sport\.git\Salle-de-Sport\obj\Debug\net10.0\ref\Salle-de-Sport.dll
+C:\Users\maenh\OneDrive\Documents\GitHub\Salle-de-Sport\obj\Debug\net10.0\Salle-de-Sport.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\maenh\OneDrive\Documents\GitHub\Salle-de-Sport\obj\Debug\net10.0\Salle-de-Sport.AssemblyInfoInputs.cache
+C:\Users\maenh\OneDrive\Documents\GitHub\Salle-de-Sport\obj\Debug\net10.0\Salle-de-Sport.AssemblyInfo.cs
+C:\Users\maenh\OneDrive\Documents\GitHub\Salle-de-Sport\obj\Debug\net10.0\Salle-de-Sport.csproj.CoreCompileInputs.cache
+C:\Users\maenh\OneDrive\Documents\GitHub\Salle-de-Sport\obj\Debug\net10.0\Salle-de-Sport.sourcelink.json
+C:\Users\maenh\OneDrive\Documents\GitHub\Salle-de-Sport\obj\Debug\net10.0\Salle-de-Sport.dll
+C:\Users\maenh\OneDrive\Documents\GitHub\Salle-de-Sport\obj\Debug\net10.0\refint\Salle-de-Sport.dll
+C:\Users\maenh\OneDrive\Documents\GitHub\Salle-de-Sport\obj\Debug\net10.0\Salle-de-Sport.pdb
