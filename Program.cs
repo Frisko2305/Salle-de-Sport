@@ -1,5 +1,4 @@
-﻿using System;
-namespace Salle_de_Sport
+﻿namespace Salle_Sport
 {
     internal static class Program
     {
