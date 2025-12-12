@@ -195,3 +195,30 @@ GRANT SELECT ON Seance TO 'R_Ev';
 GRANT SELECT ON Inscri_Seance TO 'R_Ev';
 
 FLUSH PRIVILEGES;
+-- ==============================================================================
+
+DROP USER IF EXISTS 'app_login'@'%';
+CREATE USER 'app_login'@'%' IDENTIFIED BY 'login_pass';
+GRANT SELECT ON Salle_Sport.Utilisateur TO 'app_login'@'%';
+
+DROP USER IF EXISTS 'app_ap'@'%';
+CREATE USER 'app_ap'@'%' IDENTIFIED BY 'ap_pass';
+GRANT 'R_AP' TO 'app_ap'@'%';
+SET DEFAULT ROLE 'R_AP' TO 'app_ap'@'%';
+
+DROP USER IF EXISTS 'app_as'@'%';
+CREATE USER 'app_as'@'%' IDENTIFIED BY 'as_pass';
+GRANT 'R_AS' TO 'app_as'@'%';
+SET DEFAULT ROLE 'R_AS' TO 'app_as'@'%';
+
+DROP USER IF EXISTS 'app_mb'@'%';
+CREATE USER 'app_mb'@'%' IDENTIFIED BY 'mb_pass';
+GRANT 'R_Mb' TO 'app_mb'@'%';
+SET DEFAULT ROLE 'R_Mb' TO 'app_mb'@'%';
+
+DROP USER IF EXISTS 'app_ev'@'%';
+CREATE USER 'app_ev'@'%' IDENTIFIED BY 'ev_pass';
+GRANT 'R_Ev' TO 'app_ev'@'%';
+SET DEFAULT ROLE 'R_Ev' TO 'app_ev'@'%';
+
+FLUSH PRIVILEGES;

@@ -1,4 +1,4 @@
-﻿namespace Salle_Sport
+﻿namespace Salle_Sport.Forms.Dashboards
 {
     
 }

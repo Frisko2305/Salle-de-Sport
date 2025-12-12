@@ -1,7 +1,12 @@
-﻿namespace Salle_Sport
+﻿namespace Salle_Sport.Models
 {
     public class User
     {
-        
+        public int Id { get; set;}
+        public string Email {get; set;} = string.Empty;
+        public string Pwd {get; set;} = string.Empty;
+        public string Nom { get; set;} = string.Empty;
+        public string Prenom { get; set;} = string.Empty;
+        public string Role { get; set;} = string.Empty;
     }
 }
