@@ -3,14 +3,22 @@ using Salle_Sport.Models;
 
 namespace Salle_Sport.Data.Repositories
 {
+    /// <summary>
+    /// Repository pour les fonctionnalités des membres (inscription séances, gestion profil)
+    /// </summary>
     public class Mb_Rep
     {
+        /// <summary>
+        /// Récupère toutes les séances disponibles (futures uniquement)
+        /// </summary>
+        /// <returns>Liste des séances avec informations sur le coach et l'activité</returns>
         public List<Seance> GetSeanceDispo()
         {
             List<Seance> seances = new List<Seance>();
             using (var conn = Database.GetConnection())
             {
                 conn.Open();
+                // Récupération des séances futures avec jointures sur Coach et Activité
                 string query = @"
                     SELECT s.id_Seance, s.dateH_debut, s.durée, s.cap_max, s.id_coach, s.id_ade, c.Nom AS NomCoach, c.Prenom AS PrenomCoach, a.Nom_Ade
                     FROM Seance s
@@ -20,7 +28,7 @@ namespace Salle_Sport.Data.Repositories
                     ORDER BY s.dateH_debut ASC";
                 
                 using (var cmd = new MySqlCommand(query, conn))
-                using(var reader = cmd.ExecuteReader())             //using avec deux paramètres
+                using(var reader = cmd.ExecuteReader())  // Using imbriqué : cmd et reader sont libérés automatiquement
                 {
                     while (reader.Read())
                     {
@@ -42,6 +50,12 @@ namespace Salle_Sport.Data.Repositories
             return seances;
         }
 
+        /// <summary>
+        /// Inscrit un membre à une séance spécifique
+        /// </summary>
+        /// <param name="idUser">ID de l'utilisateur</param>
+        /// <param name="idSeance">ID de la séance</param>
+        /// <returns>true si l'inscription a réussi, false en cas d'erreur</returns>
         public bool Inscri_Seance(int idUser, int idSeance)
         {
             try
@@ -58,7 +72,8 @@ namespace Salle_Sport.Data.Repositories
                         cmd.Parameters.AddWithValue("@IdUser", idUser);
                         cmd.Parameters.AddWithValue("@IdSeance", idSeance);
 
-                        return cmd.ExecuteNonQuery() > 0; //Si une ligne a été affectée, l'insertion a réussi
+                        // Si une ligne a été affectée, l'insertion a réussi
+                        return cmd.ExecuteNonQuery() > 0;
                     }
                 }
             }
@@ -69,6 +84,11 @@ namespace Salle_Sport.Data.Repositories
             }
         }
 
+        /// <summary>
+        /// Récupère toutes les inscriptions d'un membre à des séances
+        /// </summary>
+        /// <param name="idUser">ID de l'utilisateur</param>
+        /// <returns>Liste des inscriptions avec détails des séances</returns>
         public List<Inscri_Seance> GetMyInscri_Seances(int idUser)
         {
             List<Inscri_Seance> inscription = new List<Inscri_Seance>();
@@ -116,6 +136,12 @@ namespace Salle_Sport.Data.Repositories
             return inscription;
         }
 
+        /// <summary>
+        /// Désinscrit un membre d'une séance
+        /// </summary>
+        /// <param name="idUser">ID de l'utilisateur</param>
+        /// <param name="idSeance">ID de la séance</param>
+        /// <returns>true si la désinscription a réussi, false en cas d'erreur</returns>
         public bool Desinscrire_Seance(int idUser, int idSeance)
         {
             try
@@ -132,7 +158,7 @@ namespace Salle_Sport.Data.Repositories
                         cmd.Parameters.AddWithValue("@IdUser", idUser);
                         cmd.Parameters.AddWithValue("@IdSeance", idSeance);
 
-                        return cmd.ExecuteNonQuery() > 0; // Retourne true si une ligne a été supprimée
+                        return cmd.ExecuteNonQuery() > 0;
                     }
                 }
             }
@@ -143,6 +169,11 @@ namespace Salle_Sport.Data.Repositories
             }
         }
 
+        /// <summary>
+        /// Récupère le statut du dossier membre d'un utilisateur
+        /// </summary>
+        /// <param name="idUser">ID de l'utilisateur</param>
+        /// <returns>Statut du dossier (ACTIF, EN_ATTENTE, REFUSE, BANNI) ou "INEXISTANT" si pas de dossier</returns>
         public string GetStatutDossier(int idUser)
         {
             string statut = "INEXISTANT";
@@ -172,6 +203,15 @@ namespace Salle_Sport.Data.Repositories
             return statut;
         }
 
+        /// <summary>
+        /// Modifie les informations du profil d'un utilisateur
+        /// </summary>
+        /// <param name="idUser">ID de l'utilisateur</param>
+        /// <param name="nom">Nouveau nom</param>
+        /// <param name="prenom">Nouveau prénom</param>
+        /// <param name="email">Nouvel email</param>
+        /// <param name="mdp">Nouveau mot de passe</param>
+        /// <returns>true si la modification a réussi, false en cas d'erreur</returns>
         public bool ModifierProfil(int idUser, string nom, string prenom, string email, string mdp)
         {
             try
@@ -201,6 +241,11 @@ namespace Salle_Sport.Data.Repositories
             }
         }
 
+        /// <summary>
+        /// Permet à un membre de quitter définitivement la salle (appelle une procédure stockée)
+        /// </summary>
+        /// <param name="idUser">ID de l'utilisateur qui quitte</param>
+        /// <returns>true si l'opération a réussi, false en cas d'erreur</returns>
         public bool JeQuitteLaSalle(int idUser)
         {
             try

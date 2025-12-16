@@ -3,9 +3,16 @@ using Salle_Sport.Models;
 
 namespace Salle_Sport.Data.Repositories
 {
+    /// <summary>
+    /// Repository pour les fonctionnalités de l'Administrateur Secondaire
+    /// Gère les activités, coachs, séances et présences
+    /// </summary>
     public class AsRepository
     {
-        
+        /// <summary>
+        /// Récupère toutes les activités disponibles dans la salle de sport
+        /// </summary>
+        /// <returns>Liste des activités triées par nom</returns>
         public List<Activite> GetToutesActivites()
         {
             List<Activite> activites = new List<Activite>();
@@ -33,6 +40,11 @@ namespace Salle_Sport.Data.Repositories
             return activites;
         }
 
+        /// <summary>
+        /// Crée une nouvelle activité dans la base de données
+        /// </summary>
+        /// <param name="activite">Objet Activite contenant les informations à insérer</param>
+        /// <returns>true si la création a réussi, false en cas d'erreur</returns>
         public bool CreerActivite(Activite activite)
         {
             try
@@ -58,6 +70,11 @@ namespace Salle_Sport.Data.Repositories
             }
         }
 
+        /// <summary>
+        /// Modifie une activité existante
+        /// </summary>
+        /// <param name="activite">Objet Activite contenant les nouvelles informations</param>
+        /// <returns>true si la modification a réussi, false en cas d'erreur</returns>
         public bool ModifierActivite(Activite activite)
         {
             try
@@ -85,6 +102,11 @@ namespace Salle_Sport.Data.Repositories
             }
         }
 
+        /// <summary>
+        /// Supprime une activité de la base de données
+        /// </summary>
+        /// <param name="idActivite">ID de l'activité à supprimer</param>
+        /// <returns>true si la suppression a réussi, false en cas d'erreur</returns>
         public bool SupprimerActivite(int idActivite)
         {
             try
@@ -108,6 +130,10 @@ namespace Salle_Sport.Data.Repositories
             }
         }
 
+        /// <summary>
+        /// Récupère tous les coachs de la salle de sport
+        /// </summary>
+        /// <returns>Liste des coachs triés par nom et prénom</returns>
         public List<Coach> GetTousCoachs()
         {
             List<Coach> coachs = new List<Coach>();
@@ -136,6 +162,11 @@ namespace Salle_Sport.Data.Repositories
             return coachs;
         }
 
+        /// <summary>
+        /// Crée un nouveau coach dans la base de données
+        /// </summary>
+        /// <param name="coach">Objet Coach contenant les informations du nouveau coach</param>
+        /// <returns>true si la création a réussi, false en cas d'erreur</returns>
         public bool CreerCoach(Coach coach)
         {
             try
@@ -162,6 +193,11 @@ namespace Salle_Sport.Data.Repositories
             }
         }
 
+        /// <summary>
+        /// Modifie les informations d'un coach existant
+        /// </summary>
+        /// <param name="coach">Objet Coach avec les nouvelles informations</param>
+        /// <returns>true si la modification a réussi, false en cas d'erreur</returns>
         public bool ModifierCoach(Coach coach)
         {
             try
@@ -190,6 +226,11 @@ namespace Salle_Sport.Data.Repositories
             }
         }
 
+        /// <summary>
+        /// Supprime un coach de la base de données
+        /// </summary>
+        /// <param name="idCoach">ID du coach à supprimer</param>
+        /// <returns>true si la suppression a réussi, false en cas d'erreur</returns>
         public bool SupprimerCoach(int idCoach)
         {
             try
@@ -213,6 +254,10 @@ namespace Salle_Sport.Data.Repositories
             }
         }
 
+        /// <summary>
+        /// Récupère toutes les séances avec leurs informations complètes
+        /// </summary>
+        /// <returns>Liste des séances avec détails du coach et de l'activité</returns>
         public List<Seance> GetToutesSeances()
         {
             List<Seance> seances = new List<Seance>();
@@ -254,6 +299,11 @@ namespace Salle_Sport.Data.Repositories
             return seances;
         }
 
+        /// <summary>
+        /// Crée une nouvelle séance dans la base de données
+        /// </summary>
+        /// <param name="seance">Objet Seance contenant les informations de la séance</param>
+        /// <returns>true si la création a réussi, false en cas d'erreur</returns>
         public bool CreerSeance(Seance seance)
         {
             try
@@ -282,6 +332,11 @@ namespace Salle_Sport.Data.Repositories
             }
         }
 
+        /// <summary>
+        /// Modifie les informations d'une séance existante
+        /// </summary>
+        /// <param name="seance">Objet Seance avec les nouvelles informations</param>
+        /// <returns>true si la modification a réussi, false en cas d'erreur</returns>
         public bool ModifierSeance(Seance seance)
         {
             try
@@ -316,6 +371,11 @@ namespace Salle_Sport.Data.Repositories
             }
         }
 
+        /// <summary>
+        /// Supprime une séance de la base de données
+        /// </summary>
+        /// <param name="idSeance">ID de la séance à supprimer</param>
+        /// <returns>true si la suppression a réussi, false en cas d'erreur</returns>
         public bool SupprimerSeance(int idSeance)
         {
             try
@@ -339,6 +399,13 @@ namespace Salle_Sport.Data.Repositories
             }
         }
 
+        /// <summary>
+        /// Marque ou démarque la présence d'un membre à une séance
+        /// </summary>
+        /// <param name="idUser">ID de l'utilisateur</param>
+        /// <param name="idSeance">ID de la séance</param>
+        /// <param name="present">true si présent, false si absent</param>
+        /// <returns>true si la mise à jour a réussi, false en cas d'erreur</returns>
         public bool MarquerPresence(int idUser, int idSeance, bool present)
         {
             try
@@ -366,6 +433,11 @@ namespace Salle_Sport.Data.Repositories
             }
         }
 
+        /// <summary>
+        /// Récupère toutes les inscriptions pour une séance donnée
+        /// </summary>
+        /// <param name="idSeance">ID de la séance</param>
+        /// <returns>Liste des inscriptions avec informations des membres inscrits</returns>
         public List<Inscri_Seance> GetInscriptionsPourSeance(int idSeance)
         {
             List<Inscri_Seance> inscriptions = new List<Inscri_Seance>();
@@ -410,6 +482,12 @@ namespace Salle_Sport.Data.Repositories
             return inscriptions;
         }
 
+        /// <summary>
+        /// Supprime l'inscription d'un membre à une séance spécifique
+        /// </summary>
+        /// <param name="idUser">ID de l'utilisateur</param>
+        /// <param name="idSeance">ID de la séance</param>
+        /// <returns>true si la suppression a réussi, false en cas d'erreur</returns>
         public bool SupprimerInscription(int idUser, int idSeance)
         {
             try

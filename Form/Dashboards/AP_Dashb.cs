@@ -10,10 +10,14 @@ namespace Salle_Sport.Forms.Dashboards
         private Label lblWelcome;
         private TableLayoutPanel MainLayout;
 
+        /// <summary>Contrôle à onglets permettant de naviguer entre différentes vues (dossiers en attente, tous les membres, absents)</summary>
         private TabControl tabControl;
+        /// <summary>Onglets représentant respectivement : les dossiers en attente de validation, la liste complète des membres, et les membres absents</summary>
         private TabPage tabDossiersAttente, tabTousMembres, tabMembresAbsents;
+        /// <summary>Grilles de données affichant respectivement : les dossiers en attente, tous les membres, et les membres absents</summary>
         private DataGridView GridDossiersAttente, GridTousMembres, GridMbAbsents;
 
+        /// <summary>Liste déroulante permettant de filtrer les membres par statut (ACTIF, EN_ATTENTE, REFUSE, BANNI)</summary>
         private ComboBox CbBoxFiltreStatut;
         private Button btnValider, btnRefuser, btnActualiserAttente, btnBannir, btnDeconnexion, btnActualiserTous, btnActualiserAbsents, btnBannirAbsent;
 
@@ -185,7 +189,7 @@ namespace Salle_Sport.Forms.Dashboards
                 Anchor = AnchorStyles.Left,
                 Padding = new Padding(0, 8, 10, 0)
             };
-
+            // Liste déroulante permettant de filtrer l'affichage des membres par leur statut            
             CbBoxFiltreStatut = new ComboBox
             {
                 Width = 200,
@@ -209,6 +213,7 @@ namespace Salle_Sport.Forms.Dashboards
                 BorderStyle = BorderStyle.None
             };
 
+            // Panneau horizontal contenant les boutons d'actions pour les membres (Bannir, Actualiser)
             FlowLayoutPanel flowButtons = new FlowLayoutPanel
             {
                 Dock = DockStyle.Fill,

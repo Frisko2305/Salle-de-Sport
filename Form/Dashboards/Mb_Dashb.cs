@@ -11,8 +11,11 @@ namespace Salle_Sport.Forms.Dashboards
         private Label lblWelcome, lblStatus;
         private TableLayoutPanel MainLayout;
         
+        /// <summary>Contrôle à onglets permettant de naviguer entre les séances disponibles, les inscriptions du membre et son profil</summary>
         private TabControl tabControl;
+        /// <summary>Onglets représentant respectivement : les séances disponibles à l'inscription, les inscriptions actuelles du membre, et son profil personnel</summary>
         private TabPage tabSeanceDispo, tabMesSeances, tabMonProfil;
+        /// <summary>Grilles de données affichant respectivement : les séances disponibles et les inscriptions du membre</summary>
         private DataGridView GridSeanceDispo, GridMesInscri;
         
         private Button btnInscrire, btnActualiserDispo, btnMeDesinscrire, btnActualiserMesInscri, btnDeconnexion;

@@ -3,9 +3,16 @@ using Salle_Sport.Models;
 
 namespace Salle_Sport.Data.Repositories
 {
+    /// <summary>
+    /// Repository pour les fonctionnalités de l'Administrateur Principal
+    /// Gère la validation des dossiers membres, bannissements et suivi des absences
+    /// </summary>
     public class AP_Rep
     {
-        // Récupérer tous les dossiers en attente de validation
+        /// <summary>
+        /// Récupère tous les dossiers membres en attente de validation
+        /// </summary>
+        /// <returns>Liste des profils membres avec statut EN_ATTENTE</returns>
         public List<MbProfile> GetDossiersEnAttente()
         {
             List<MbProfile> dossiers = new List<MbProfile>();
@@ -46,7 +53,12 @@ namespace Salle_Sport.Data.Repositories
             return dossiers;
         }
 
-        // Valider un dossier membre
+        /// <summary>
+        /// Valide un dossier membre et change son statut à ACTIF
+        /// </summary>
+        /// <param name="Id">ID de l'utilisateur dont le dossier doit être validé</param>
+        /// <param name="validePar">ID de l'administrateur qui valide le dossier</param>
+        /// <returns>true si la validation a réussi, false en cas d'erreur</returns>
         public bool ValiderDossier(int Id, int validePar)
         {
             try
@@ -77,7 +89,11 @@ namespace Salle_Sport.Data.Repositories
             }
         }
 
-        // Refuser un dossier membre
+        /// <summary>
+        /// Refuse un dossier membre et change son statut à REFUSE
+        /// </summary>
+        /// <param name="Id">ID de l'utilisateur dont le dossier doit être refusé</param>
+        /// <returns>true si le refus a réussi, false en cas d'erreur</returns>
         public bool RefuserDossier(int Id)
         {
             try
@@ -104,7 +120,12 @@ namespace Salle_Sport.Data.Repositories
             }
         }
 
-        // Bannir un membre (appelle la procédure stockée)
+        /// <summary>
+        /// Bannit un membre de la salle en appelant la procédure stockée Ban_Mb
+        /// </summary>
+        /// <param name="Id">ID de l'utilisateur à bannir</param>
+        /// <param name="motif">Raison du bannissement</param>
+        /// <returns>true si le bannissement a réussi, false en cas d'erreur</returns>
         public bool BannirMembre(int Id, string motif)
         {
             try
@@ -132,7 +153,10 @@ namespace Salle_Sport.Data.Repositories
             }
         }
 
-        // Récupérer les membres absents (Vue SQL)
+        /// <summary>
+        /// Récupère la liste des membres absents via la vue SQL Vue_Mb_Absent
+        /// </summary>
+        /// <returns>Liste des utilisateurs considérés comme absents</returns>
         public List<User> GetMembresAbsents()
         {
             List<User> membres = new List<User>();
@@ -162,7 +186,10 @@ namespace Salle_Sport.Data.Repositories
             return membres;
         }
 
-        // Voir tous les membres actifs
+        /// <summary>
+        /// Récupère tous les dossiers membres (tous statuts confondus)
+        /// </summary>
+        /// <returns>Liste complète des profils membres avec leurs informations</returns>
         public List<MbProfile> GetTousMembres()
         {
             List<MbProfile> membres = new List<MbProfile>();

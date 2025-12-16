@@ -10,7 +10,9 @@ namespace Salle_Sport.Forms.Dashboards
         private AsRepository ASRep;
         private Label lblSeanceSelectionnee;
         private TableLayoutPanel mainLayout;
+        /// <summary>Contrôle à onglets permettant de naviguer entre les différentes sections (Activités, Coachs, Séances)</summary>
         private TabControl tabControl;
+        /// <summary>Grilles de données affichant respectivement : les activités, les coachs, les séances, et les inscriptions</summary>
         private DataGridView GridAde, GridCoach, GridSeance, GridInscri;
         private Button btnDeconnexion,btnAjoutAde, btModifAde, btnSuppAde;
         private Button btnAjoutCoach, btnModifCoach, btnSuppCoach;
@@ -82,6 +84,7 @@ namespace Salle_Sport.Forms.Dashboards
 
         private void InitializeTabActivites()
         {
+            // Onglet pour gérer les activités de la salle (ajout, modification, suppression)
             TabPage tabActivites = new TabPage("Gestion Activités");
             TableLayoutPanel layout = new TableLayoutPanel
             {
@@ -103,7 +106,8 @@ namespace Salle_Sport.Forms.Dashboards
                 AllowUserToAddRows = false
             };
             layout.Controls.Add(GridAde, 0, 0);
-
+            // Panneau horizontal contenant les boutons d'action pour les coachs            
+            // Panneau horizontal contenant les boutons d'action pour les activités
             FlowLayoutPanel panelButtons = new FlowLayoutPanel
             {
                 Dock = DockStyle.Fill,
@@ -131,6 +135,7 @@ namespace Salle_Sport.Forms.Dashboards
 
         private void InitializeTabCoachs()
         {
+            // Onglet pour gérer les coachs de la salle (ajout, modification, suppression)
             TabPage tabCoachs = new TabPage("Gestion Coachs");
             TableLayoutPanel layout = new TableLayoutPanel
             {
@@ -152,6 +157,7 @@ namespace Salle_Sport.Forms.Dashboards
                 AllowUserToAddRows = false
             };
 
+            // Panneau horizontal contenant les boutons d'action pour les coachs
             FlowLayoutPanel panelButtons = new FlowLayoutPanel
             {
                 Dock = DockStyle.Fill,
@@ -183,6 +189,7 @@ namespace Salle_Sport.Forms.Dashboards
 
         private void InitializeTabSeances()
         {
+            // Onglet pour gérer les séances (ajout, modification, suppression, visualisation des inscriptions)
             TabPage tabSeances = new TabPage("Gestion Séances");
             TableLayoutPanel layout = new TableLayoutPanel
             {
@@ -215,6 +222,7 @@ namespace Salle_Sport.Forms.Dashboards
             GridSeance.SelectionChanged += DgvSeances_SelectionChanged;
             topSection.Controls.Add(GridSeance, 0, 0);
 
+            // Panneau horizontal contenant les boutons d'action pour les séances
             FlowLayoutPanel panelButtonsSeances = new FlowLayoutPanel
             {
                 Dock = DockStyle.Fill,

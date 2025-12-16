@@ -12,10 +12,13 @@ namespace Salle_Sport.Forms.Dashboards
         private User _currentUser;
         private EvRepository _evRepo;
         private TableLayoutPanel mainLayout;
+        /// <summary>Contrôle à onglets permettant de basculer entre les résultats de requêtes et les options de requêtes prédéfinies</summary>
         private TabControl tabControl;
         private Button btnDeconnexion;
         private Label lblDerniereRequete;
+        /// <summary>Grille de données affichant les résultats des requêtes SQL ou statistiques exécutées</summary>
         private DataGridView GridResult;
+        /// <summary>Panneau horizontal contenant les boutons de requêtes prédéfinies (statistiques, listes, etc.)</summary>
         private FlowLayoutPanel flowButtons;
         private Button btnRequeteSQL, btnSeancesInscrits, btnStatsActivites, btnStatsCoachs;
         private Button btnTousUsers, btnStatutsDossiers, btnInscritsSeance;
@@ -25,7 +28,7 @@ namespace Salle_Sport.Forms.Dashboards
             _currentUser = user;
             _evRepo = new EvRepository();
 
-            this.Text = "Espace Événements - Salle de Sport";
+            this.Text = "Espace Évaluateur - Salle de Sport";
             this.Size = new Size(1200, 800);
             this.StartPosition = FormStartPosition.CenterScreen;
 

@@ -3,9 +3,16 @@ using Salle_Sport.Models;
 
 namespace Salle_Sport.Data.Repositories
 {
+    /// <summary>
+    /// Repository pour les événements et statistiques
+    /// Gère les consultations et analyses des données de la salle de sport
+    /// </summary>
     public class EvRepository
     {
-        // Récupérer toutes les séances avec le nombre d'inscrits
+        /// <summary>
+        /// Récupère toutes les séances avec le nombre de membres inscrits
+        /// </summary>
+        /// <returns>Liste de tuples contenant la séance et le nombre d'inscrits</returns>
         public List<(Seance Seance, int NbInscrits)> GetSeancesAvecInscrits()
         {
             var resultat = new List<(Seance, int)>();
@@ -14,6 +21,7 @@ namespace Salle_Sport.Data.Repositories
             {
                 conn.Open();
 
+                // Jointures avec GROUP BY pour compter les inscrits par séance
                 string query = @"
                     SELECT s.id_Seance, s.dateH_debut, s.durée, s.cap_max,
                            c.Nom AS NomCoach, c.Prenom AS PrenomCoach,
@@ -51,7 +59,11 @@ namespace Salle_Sport.Data.Repositories
             return resultat;
         }
 
-        // Récupérer les inscriptions pour une séance spécifique
+        /// <summary>
+        /// Récupère la liste détaillée des inscrits pour une séance spécifique
+        /// </summary>
+        /// <param name="idSeance">ID de la séance</param>
+        /// <returns>Liste des inscriptions avec informations des membres et statut de présence</returns>
         public List<Inscri_Seance> GetInscritsPourSeance(int idSeance)
         {
             List<Inscri_Seance> inscrits = new List<Inscri_Seance>();
@@ -98,7 +110,10 @@ namespace Salle_Sport.Data.Repositories
             return inscrits;
         }
 
-        // Statistiques : Activités les plus populaires
+        /// <summary>
+        /// Génère des statistiques sur les activités les plus populaires
+        /// </summary>
+        /// <returns>Liste de tuples avec nom activité, nombre de séances et nombre d'inscrits</returns>
         public List<(string NomActivite, int NbSeances, int NbInscrits)> GetStatistiquesActivites()
         {
             var stats = new List<(string, int, int)>();
@@ -134,7 +149,10 @@ namespace Salle_Sport.Data.Repositories
             return stats;
         }
 
-        // Statistiques : Coachs avec le plus de séances
+        /// <summary>
+        /// Génère des statistiques sur les coachs les plus actifs
+        /// </summary>
+        /// <returns>Liste de tuples avec nom du coach et nombre de séances animées</returns>
         public List<(string NomCoach, int NbSeances)> GetStatistiquesCoach()
         {
             var stats = new List<(string, int)>();
@@ -164,7 +182,10 @@ namespace Salle_Sport.Data.Repositories
             return stats;
         }
 
-        // Récupérer tous les utilisateurs avec leur rôle
+        /// <summary>
+        /// Récupère tous les utilisateurs avec leurs rôles
+        /// </summary>
+        /// <returns>Liste de tous les utilisateurs triés par nom et prénom</returns>
         public List<User> GetTousUtilisateurs()
         {
             List<User> users = new List<User>();
@@ -194,7 +215,10 @@ namespace Salle_Sport.Data.Repositories
             return users;
         }
 
-        // Récupérer les dossiers membres avec leurs statuts
+        /// <summary>
+        /// Récupère tous les dossiers membres avec leurs statuts actuels
+        /// </summary>
+        /// <returns>Liste des profils membres avec statuts et informations</returns>
         public List<MbProfile> GetStatutsDossiers()
         {
             List<MbProfile> dossiers = new List<MbProfile>();
