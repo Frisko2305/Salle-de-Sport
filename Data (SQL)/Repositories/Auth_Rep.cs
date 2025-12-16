@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using MySql.Data.MySqlClient;
-using Salle_Sport.Data;
+﻿using MySql.Data.MySqlClient;
 using Salle_Sport.Models;
 
 namespace Salle_Sport.Data.Repositories
@@ -49,12 +47,31 @@ namespace Salle_Sport.Data.Repositories
 
         public bool Register(User user)
         {
-            using(var conn = Database.GetConnection())
+            try
             {
-                conn.Open();
+                using(var conn = Database.GetConnection())
+                {
+                    conn.Open();
 
-                // CODE SQL INSERT ETC
-                return true;
+                    string query = @"INSERT INTO Utilisateur (email, mdp, Nom, Prenom, rôle) 
+                                     VALUES (@Email, @Pwd, @Nom, @Prenom, @Role)";
+
+                    using (var cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Email", user.Email);
+                        cmd.Parameters.AddWithValue("@Pwd", user.Pwd); // Dans la vraie vie, on hacherait ici
+                        cmd.Parameters.AddWithValue("@Nom", user.Nom);
+                        cmd.Parameters.AddWithValue("@Prenom", user.Prenom);
+                        cmd.Parameters.AddWithValue("@Role", user.Role);
+
+                        return cmd.ExecuteNonQuery() > 0;   //Si une ligne a été affectée, l'insertion a réussi
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"ERROR REGISTER : {ex.Message}");
+                return false;
             }
         }
     }

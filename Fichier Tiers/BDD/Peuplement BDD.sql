@@ -56,28 +56,28 @@ INSERT INTO Utilisateur (email, mdp, Nom, Prenom, rôle) VALUES
 ('mb45@mail.com', '1234', 'Masson', 'Leon', 'MB'),
 
 -- Groupe 2 (Futurs En Attente - 7 pers)
-('wait1@mail.com', '1234', 'Attente', 'Un', 'MB'), ('wait2@mail.com', '1234', 'Attente', 'Deux', 'MB'),
-('wait3@mail.com', '1234', 'Attente', 'Trois', 'MB'), ('wait4@mail.com', '1234', 'Attente', 'Quatre', 'MB'),
-('wait5@mail.com', '1234', 'Attente', 'Cinq', 'MB'), ('wait6@mail.com', '1234', 'Attente', 'Six', 'MB'),
-('wait7@mail.com', '1234', 'Attente', 'Sept', 'MB'),
+('wait1@mail.com', '1234', 'Attente', 'Jean', 'MB'), ('wait2@mail.com', '1234', 'Attente', 'Henri', 'MB'),
+('wait3@mail.com', '1234', 'Attente', 'Antoine', 'MB'), ('wait4@mail.com', '1234', 'Attente', 'Nicolas', 'MB'),
+('wait5@mail.com', '1234', 'Attente', 'Marc', 'MB'), ('wait6@mail.com', '1234', 'Attente', 'Adriena', 'MB'),
+('wait7@mail.com', '1234', 'Attente', 'Julie', 'MB'),
 
 -- Groupe 3 (Futurs Refusés - 5 pers)
-('ref1@mail.com', '1234', 'Refuse', 'Un', 'MB'), ('ref2@mail.com', '1234', 'Refuse', 'Deux', 'MB'),
-('ref3@mail.com', '1234', 'Refuse', 'Trois', 'MB'), ('ref4@mail.com', '1234', 'Refuse', 'Quatre', 'MB'),
-('ref5@mail.com', '1234', 'Refuse', 'Cinq', 'MB'),
+('ref1@mail.com', '1234', 'Refuse', 'Marie', 'MB'), ('ref2@mail.com', '1234', 'Refuse', 'Romain', 'MB'),
+('ref3@mail.com', '1234', 'Refuse', 'Mayen', 'MB'), ('ref4@mail.com', '1234', 'Refuse', 'Laura', 'MB'),
+('ref5@mail.com', '1234', 'Refuse', 'Maxime', 'MB'),
 
 -- Groupe 4 (Futurs Bannis - 5 pers)
-('ban1@mail.com', '1234', 'Banni', 'Un', 'MB'), ('ban2@mail.com', '1234', 'Banni', 'Deux', 'MB'),
-('ban3@mail.com', '1234', 'Banni', 'Trois', 'MB'), ('ban4@mail.com', '1234', 'Banni', 'Quatre', 'MB'),
-('ban5@mail.com', '1234', 'Banni', 'Cinq', 'MB'),
+('ban1@mail.com', '1234', 'Banni', 'Pierrick', 'MB'), ('ban2@mail.com', '1234', 'Banni', 'Justine', 'MB'),
+('ban3@mail.com', '1234', 'Banni', 'Noam', 'MB'), ('ban4@mail.com', '1234', 'Banni', 'Anaïs', 'MB'),
+('ban5@mail.com', '1234', 'Banni', 'Romane', 'MB'),
 
 -- Groupe 5 (Futurs Quittés - 12 pers)
-('quit1@mail.com', '1234', 'Parti', 'Un', 'MB'), ('quit2@mail.com', '1234', 'Parti', 'Deux', 'MB'),
-('quit3@mail.com', '1234', 'Parti', 'Trois', 'MB'), ('quit4@mail.com', '1234', 'Parti', 'Quatre', 'MB'),
-('quit5@mail.com', '1234', 'Parti', 'Cinq', 'MB'), ('quit6@mail.com', '1234', 'Parti', 'Six', 'MB'),
-('quit7@mail.com', '1234', 'Parti', 'Sept', 'MB'), ('quit8@mail.com', '1234', 'Parti', 'Huit', 'MB'),
-('quit9@mail.com', '1234', 'Parti', 'Neuf', 'MB'), ('quit10@mail.com', '1234', 'Parti', 'Dix', 'MB'),
-('quit11@mail.com', '1234', 'Parti', 'Onze', 'MB'), ('quit12@mail.com', '1234', 'Parti', 'Douze', 'MB');
+('quit1@mail.com', '1234', 'Parti', 'Niels', 'MB'), ('quit2@mail.com', '1234', 'Parti', 'Quentin', 'MB'),
+('quit3@mail.com', '1234', 'Parti', 'Aurélien', 'MB'), ('quit4@mail.com', '1234', 'Parti', 'Tom', 'MB'),
+('quit5@mail.com', '1234', 'Parti', 'Aurélie', 'MB'), ('quit6@mail.com', '1234', 'Parti', 'Mael', 'MB'),
+('quit7@mail.com', '1234', 'Parti', 'Nicolle', 'MB'), ('quit8@mail.com', '1234', 'Parti', 'Fabrice', 'MB'),
+('quit9@mail.com', '1234', 'Parti', 'Ludivine', 'MB'), ('quit10@mail.com', '1234', 'Parti', 'Fabien', 'MB'),
+('quit11@mail.com', '1234', 'Parti', 'Guillaume', 'MB'), ('quit12@mail.com', '1234', 'Parti', 'Fabien', 'MB');
 
 -- =======================================================================================
 

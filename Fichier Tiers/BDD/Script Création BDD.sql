@@ -170,7 +170,7 @@ GRANT SELECT ON Utilisateur TO 'R_AS';
 GRANT SELECT ON Dossier_Mb TO 'R_AS';
 GRANT SELECT, INSERT, UPDATE, DELETE ON Seance TO 'R_AS';
 GRANT SELECT, INSERT, UPDATE, DELETE ON Activite TO 'R_AS';
-GRANT SELECT, INSERT, UPDATE ON Coach TO 'R_AS';
+GRANT SELECT, INSERT, UPDATE, DELETE ON Coach TO 'R_AS';
 GRANT SELECT, DELETE ON Inscri_Seance TO 'R_AS';
 GRANT UPDATE (present) ON Inscri_Seance TO 'R_AS';
 
@@ -182,13 +182,13 @@ GRANT SELECT ON Dossier_Mb TO 'R_Mb';
 GRANT EXECUTE ON PROCEDURE JeQuitte TO 'R_Mb';
 GRANT SELECT ON Seance TO 'R_Mb';
 GRANT SELECT ON Activite TO 'R_Mb';
-GRANT SELECT (id_coach, Nom, Prenom, Spécialité) ON Coach TO 'R_Mb';
+GRANT SELECT (id_Coach, Nom, Prenom, Spécialité) ON Coach TO 'R_Mb';
 GRANT SELECT, DELETE ON Inscri_Seance TO 'R_Mb';
 GRANT INSERT (id_user, id_seance) ON Inscri_Seance TO 'R_Mb';
 
 CREATE ROLE 'R_Ev';
-GRANT SELECT (id_user, Nom, Prenom, rôle) ON Utilisateur TO 'R_Ev';
-GRANT SELECT (id_coach, Nom, Prenom, Spécialité) ON Coach TO 'R_Ev';
+GRANT SELECT (id_User, Nom, Prenom, rôle) ON Utilisateur TO 'R_Ev';
+GRANT SELECT (id_Coach, Nom, Prenom, Spécialité) ON Coach TO 'R_Ev';
 GRANT SELECT (id_user, statut, date_creat_dossier, motif_ban) ON Dossier_Mb TO 'R_Ev';
 GRANT SELECT ON Activite TO 'R_Ev';
 GRANT SELECT ON Seance TO 'R_Ev';
