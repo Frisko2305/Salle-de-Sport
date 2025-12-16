@@ -1,7 +1,4 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
-using MySqlX.XDevAPI.Relational;
-using Salle_Sport.Data.Repositories;
+﻿using Salle_Sport.Data.Repositories;
 using Salle_Sport.Models;
 
 namespace Salle_Sport.Forms

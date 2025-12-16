@@ -1,5 +1,4 @@
 ﻿using MySql.Data.MySqlClient;
-using Salle_Sport.Data;
 using Salle_Sport.Models;
 
 namespace Salle_Sport.Data.Repositories

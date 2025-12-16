@@ -1,8 +1,5 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
-using Salle_Sport.Models;
+﻿using Salle_Sport.Models;
 using Salle_Sport.Data.Repositories;
-using MySqlX.XDevAPI.Common;
 
 namespace Salle_Sport.Forms.Dashboards
 {

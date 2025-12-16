@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
-using Salle_Sport.Data.Repositories;
+﻿using Salle_Sport.Data.Repositories;
 using Salle_Sport.Forms.Dashboards;
 
 namespace Salle_Sport.Forms
