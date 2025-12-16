@@ -25,7 +25,9 @@ INSERT INTO Utilisateur (email, mdp, Nom, Prenom, rôle) VALUES
 -- Les 3 AS (Admins Secondaires)
 ('staff1@gym.com', 'pass', 'Manager', 'Lea', 'AS'),
 ('staff2@gym.com', 'pass', 'Staff', 'Tom', 'AS'),
-('staff3@gym.com', 'pass', 'Staff', 'Zoe', 'AS');
+('staff3@gym.com', 'pass', 'Staff', 'Zoe', 'AS'),
+-- L'Evaluateur (Ev)
+('eval1@gym.com', 'pass', 'Evaluateur', 'Alex', 'Ev');
 
 -- =============================================================================
 

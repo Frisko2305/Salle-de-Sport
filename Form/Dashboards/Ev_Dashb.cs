@@ -88,12 +88,13 @@ namespace Salle_Sport.Forms.Dashboards
             TableLayoutPanel layout = new TableLayoutPanel
             {
                 Dock = DockStyle.Fill,
-                RowCount = 2,
+                RowCount = 3,
                 ColumnCount = 1,
                 Padding = new Padding(10)
             };
             layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
             layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
 
             lblDerniereRequete = new Label
             {
@@ -114,8 +115,23 @@ namespace Salle_Sport.Forms.Dashboards
                 AllowUserToAddRows = false
             };
 
+            Button btnRafraichir = new Button
+            {
+                Text = "Rafraîchir / Effacer",
+                Dock = DockStyle.Right,
+                Width = 150,
+                Height = 40,
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold)
+            };
+            btnRafraichir.Click += (s, e) =>
+            {
+                GridResult.DataSource = null;
+                lblDerniereRequete.Text = "Aucun résultat. Exécutez une requête depuis l'onglet Requêtes";
+            };
+
             layout.Controls.Add(lblDerniereRequete, 0, 0);
             layout.Controls.Add(GridResult, 0, 1);
+            layout.Controls.Add(btnRafraichir, 0, 2);
             tabResultats.Controls.Add(layout);
             tabControl.TabPages.Add(tabResultats);
         }
