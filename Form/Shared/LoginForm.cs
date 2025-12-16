@@ -5,12 +5,12 @@ namespace Salle_Sport.Forms
 {
     public class LoginForm : Form
     {
-        private TableLayoutPanel MainLayout;
-        private TextBox txtEmail;
-        private TextBox txtPwd;
-        private Button btnLogin;
-        private Label lblStatus;
-        private LinkLabel lnkRegister;
+        private TableLayoutPanel? MainLayout;
+        private TextBox? txtEmail;
+        private TextBox? txtPwd;
+        private Button? btnLogin;
+        private Label? lblStatus;
+        private LinkLabel? lnkRegister;
 
         private AuthRepository _authRepository;
 
@@ -101,8 +101,8 @@ namespace Salle_Sport.Forms
 
         private void BtnLogin_Click(object? sender, EventArgs e)
         {
-            string email = txtEmail.Text;
-            string pwd = txtPwd.Text;
+            string? email = txtEmail?.Text;
+            string? pwd = txtPwd?.Text;
 
             Console.WriteLine($"Tentative de connexion avec Email: {email}");
 
@@ -110,8 +110,8 @@ namespace Salle_Sport.Forms
 
             if(user != null)
             {
-                lblStatus.Text = "Succès !";
-                lblStatus.ForeColor = Color.Green;
+                lblStatus?.Text = "Succès !";
+                lblStatus?.ForeColor = Color.Green;
                 
                 this.Hide();
 
@@ -128,7 +128,7 @@ namespace Salle_Sport.Forms
             }
             else
             {
-                lblStatus.Text = "Échec de la connexion.";
+                lblStatus?.Text = "Échec de la connexion.";
             }
         }
 

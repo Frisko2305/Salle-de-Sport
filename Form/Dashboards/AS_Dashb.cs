@@ -8,16 +8,16 @@ namespace Salle_Sport.Forms.Dashboards
     {
         private User _currentUser;
         private AsRepository ASRep;
-        private Label lblSeanceSelectionnee;
-        private TableLayoutPanel mainLayout;
+        private Label? lblSeanceSelectionnee;
+        private TableLayoutPanel? mainLayout;
         /// <summary>Contrôle à onglets permettant de naviguer entre les différentes sections (Activités, Coachs, Séances)</summary>
-        private TabControl tabControl;
+        private TabControl? tabControl;
         /// <summary>Grilles de données affichant respectivement : les activités, les coachs, les séances, et les inscriptions</summary>
-        private DataGridView GridAde, GridCoach, GridSeance, GridInscri;
-        private Button btnDeconnexion,btnAjoutAde, btModifAde, btnSuppAde;
-        private Button btnAjoutCoach, btnModifCoach, btnSuppCoach;
-        private Button btnAjoutSeance, btnModifSeance, btnSuppSeance, btnVoirInscri;
-        private Button btnMarquerPST, btnMarquerABS, btnSuppInscri;
+        private DataGridView? GridAde, GridCoach, GridSeance, GridInscri;
+        private Button? btnDeconnexion,btnAjoutAde, btModifAde, btnSuppAde;
+        private Button? btnAjoutCoach, btnModifCoach, btnSuppCoach;
+        private Button? btnAjoutSeance, btnModifSeance, btnSuppSeance, btnVoirInscri;
+        private Button? btnMarquerPST, btnMarquerABS, btnSuppInscri;
 
         public AS_Dashb(User user)
         {
@@ -130,7 +130,7 @@ namespace Salle_Sport.Forms.Dashboards
 
             layout.Controls.Add(panelButtons, 0, 1);
             tabActivites.Controls.Add(layout);
-            tabControl.TabPages.Add(tabActivites);
+            tabControl?.TabPages.Add(tabActivites);
         }
 
         private void InitializeTabCoachs()
@@ -184,7 +184,7 @@ namespace Salle_Sport.Forms.Dashboards
 
             tabCoachs.Controls.Add(layout);
 
-            tabControl.TabPages.Add(tabCoachs);
+            tabControl?.TabPages.Add(tabCoachs);
         }
 
         private void InitializeTabSeances()
@@ -307,7 +307,7 @@ namespace Salle_Sport.Forms.Dashboards
             layout.Controls.Add(bottomSection, 0, 1);
 
             tabSeances.Controls.Add(layout);
-            tabControl.TabPages.Add(tabSeances);
+            tabControl?.TabPages.Add(tabSeances);
         }
 
         private void LoadData()
@@ -320,7 +320,7 @@ namespace Salle_Sport.Forms.Dashboards
         private void LoadActivites()
         {
             var activites = ASRep.GetToutesActivites();
-            GridAde.DataSource = activites.Select(a => new
+            GridAde?.DataSource = activites.Select(a => new
             {
                 ID = a.Id,
                 Nom = a.NomAde,
@@ -331,7 +331,7 @@ namespace Salle_Sport.Forms.Dashboards
         private void LoadCoachs()
         {
             var coachs = ASRep.GetTousCoachs();
-            GridCoach.DataSource = coachs.Select(c => new
+            GridCoach?.DataSource = coachs.Select(c => new
             {
                 ID = c.Id,
                 Nom = c.Nom,
@@ -343,7 +343,7 @@ namespace Salle_Sport.Forms.Dashboards
         private void LoadSeances()
         {
             var seances = ASRep.GetToutesSeances();
-            GridSeance.DataSource = seances.Select(s => new
+            GridSeance?.DataSource = seances.Select(s => new
             {
                 ID = s.Id,
                 Date = s.DateHDebut.ToString("dd/MM/yyyy HH:mm"),
@@ -354,10 +354,10 @@ namespace Salle_Sport.Forms.Dashboards
             }).ToList();
         }
 
-        private void LoadInscriptions(int idSeance)
+        private void LoadInscriptions(int? idSeance)
         {
             var inscriptions = ASRep.GetInscriptionsPourSeance(idSeance);
-            GridInscri.DataSource = inscriptions.Select(i => new
+            GridInscri?.DataSource = inscriptions.Select(i => new
             {
                 IdUser = i.IdUser,
                 IdSeance = i.IdSeance,
@@ -368,7 +368,7 @@ namespace Salle_Sport.Forms.Dashboards
                 Présent = i.Present ? "Oui" : "Non"
             }).ToList();
 
-            lblSeanceSelectionnee.Text = $"Inscriptions pour la séance sélectionnée ({inscriptions.Count} inscrits)";
+            lblSeanceSelectionnee?.Text = $"Inscriptions pour la séance sélectionnée ({inscriptions.Count} inscrits)";
         }
 
         private void BtnAjouterActivite_Click(object? sender, EventArgs e)
@@ -427,14 +427,15 @@ namespace Salle_Sport.Forms.Dashboards
 
         private void BtnModifierActivite_Click(object? sender, EventArgs e)
         {
-            if (GridAde.SelectedRows.Count == 0)
+            if (GridAde?.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Veuillez sélectionner une activité.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            int id = (int)GridAde.SelectedRows[0].Cells["ID"].Value;
-            var activite = ASRep.GetToutesActivites().FirstOrDefault(a => a.Id == id);
+            int? id = (int?)GridAde?.SelectedRows[0].Cells["ID"].Value;
+            if (id == null) return;
+            var activite = ASRep.GetToutesActivites().FirstOrDefault(a => a.Id == id.Value);
             if (activite == null) return;
 
             using (Form dialog = new Form())
@@ -492,13 +493,13 @@ namespace Salle_Sport.Forms.Dashboards
 
         private void BtnSupprimerActivite_Click(object? sender, EventArgs e)
         {
-            if (GridAde.SelectedRows.Count == 0)
+            if (GridAde?.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Veuillez sélectionner une activité.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            int id = (int)GridAde.SelectedRows[0].Cells["ID"].Value;
+            int? id = (int?)GridAde?.SelectedRows[0].Cells["ID"].Value;
             var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer cette activité ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
@@ -577,13 +578,13 @@ namespace Salle_Sport.Forms.Dashboards
 
         private void BtnModifierCoach_Click(object? sender, EventArgs e)
         {
-            if (GridCoach.SelectedRows.Count == 0)
+            if (GridCoach?.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Veuillez sélectionner un coach.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            int id = (int)GridCoach.SelectedRows[0].Cells["ID"].Value;
+            int? id = (int?)GridCoach?.SelectedRows[0].Cells["ID"].Value;
             var coach = ASRep.GetTousCoachs().FirstOrDefault(c => c.Id == id);
             if (coach == null) return;
 
@@ -649,15 +650,15 @@ namespace Salle_Sport.Forms.Dashboards
 
         private void BtnSupprimerCoach_Click(object? sender, EventArgs e)
         {
-            if (GridCoach.SelectedRows.Count == 0)
+            if (GridCoach?.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Veuillez sélectionner un coach.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            int id = (int)GridCoach.SelectedRows[0].Cells["ID"].Value;
-            string nom = GridCoach.SelectedRows[0].Cells["Nom"].Value?.ToString() ?? "";
-            string prenom = GridCoach.SelectedRows[0].Cells["Prénom"].Value?.ToString() ?? "";
+            int? id = (int?)GridCoach?.SelectedRows[0].Cells["ID"].Value;
+            string nom = GridCoach?.SelectedRows[0].Cells["Nom"].Value?.ToString() ?? "";
+            string prenom = GridCoach?.SelectedRows[0].Cells["Prénom"].Value?.ToString() ?? "";
 
             var result = MessageBox.Show($"Êtes-vous sûr de vouloir supprimer le coach {prenom} {nom} ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -729,8 +730,8 @@ namespace Salle_Sport.Forms.Dashboards
                         DateHDebut = dtpDate.Value,
                         Duree = (int)nudDuree.Value,
                         Cap_Max = (int)nudCap.Value,
-                        IdCoach = (int)cboCoach.SelectedValue,
-                        IdAde = (int)cboActivite.SelectedValue
+                        IdCoach = (int?)cboCoach.SelectedValue,
+                        IdAde = (int?)cboActivite.SelectedValue
                     };
 
                     if (ASRep.CreerSeance(seance))
@@ -762,13 +763,13 @@ namespace Salle_Sport.Forms.Dashboards
 
         private void BtnModifierSeance_Click(object? sender, EventArgs e)
         {
-            if (GridSeance.SelectedRows.Count == 0)
+            if (GridSeance?.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Veuillez sélectionner une séance.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            int id = (int)GridSeance.SelectedRows[0].Cells["ID"].Value;
+            int? id = (int?)GridSeance?.SelectedRows[0].Cells["ID"].Value;
             var seance = ASRep.GetToutesSeances().FirstOrDefault(s => s.Id == id);
             if (seance == null) return;
 
@@ -800,7 +801,7 @@ namespace Salle_Sport.Forms.Dashboards
                 cboCoach.DataSource = coachs;
                 cboCoach.DisplayMember = "Nom";
                 cboCoach.ValueMember = "Id";
-                cboCoach.SelectedValue = seance.IdCoach;
+                cboCoach.SelectedValue = seance.IdCoach ?? 0;
 
 
                 Label lblActivite = new Label { Text = "Activité:", Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft };
@@ -808,7 +809,7 @@ namespace Salle_Sport.Forms.Dashboards
                 cboActivite.DataSource = activites;
                 cboActivite.DisplayMember = "NomAde";
                 cboActivite.ValueMember = "Id";
-                cboActivite.SelectedValue = seance.IdAde;
+                cboActivite.SelectedValue = seance.IdAde ?? 0;
 
 
                 Button btnOk = new Button { Text = "Modifier", Dock = DockStyle.Right, Width = 80 };
@@ -817,8 +818,8 @@ namespace Salle_Sport.Forms.Dashboards
                     seance.DateHDebut = dtpDate.Value;
                     seance.Duree = (int)nudDuree.Value;
                     seance.Cap_Max = (int)nudCap.Value;
-                    seance.IdCoach = (int)cboCoach.SelectedValue;
-                    seance.IdAde = (int)cboActivite.SelectedValue;
+                    seance.IdCoach = (int?)cboCoach.SelectedValue;
+                    seance.IdAde = (int?)cboActivite.SelectedValue;
 
                     if (ASRep.ModifierSeance(seance))
                     {
@@ -851,13 +852,13 @@ namespace Salle_Sport.Forms.Dashboards
 
         private void BtnSupprimerSeance_Click(object? sender, EventArgs e)
         {
-            if (GridSeance.SelectedRows.Count == 0)
+            if (GridSeance?.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Veuillez sélectionner une séance.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            int id = (int)GridSeance.SelectedRows[0].Cells["ID"].Value;
+            int? id = (int?)GridSeance?.SelectedRows[0].Cells["ID"].Value;
             var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer cette séance ? Toutes les inscriptions seront supprimées.", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
@@ -866,8 +867,8 @@ namespace Salle_Sport.Forms.Dashboards
                 {
                     MessageBox.Show("Séance supprimée avec succès.", "Succès", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadSeances();
-                    GridInscri.DataSource = null;
-                    lblSeanceSelectionnee.Text = "Sélectionnez une séance pour voir les inscriptions";
+                    GridInscri?.DataSource = null;
+                    lblSeanceSelectionnee?.Text = "Sélectionnez une séance pour voir les inscriptions";
                 }
                 else
                 {
@@ -878,35 +879,35 @@ namespace Salle_Sport.Forms.Dashboards
 
         private void DgvSeances_SelectionChanged(object? sender, EventArgs e)
         {
-            if (GridSeance.SelectedRows.Count > 0)
+            if (GridSeance?.SelectedRows.Count > 0)
             {
-                int idSeance = (int)GridSeance.SelectedRows[0].Cells["ID"].Value;
+                int? idSeance = (int?)GridSeance.SelectedRows[0].Cells["ID"].Value;
                 LoadInscriptions(idSeance);
             }
         }
 
         private void BtnVoirInscriptions_Click(object? sender, EventArgs e)
         {
-            if (GridSeance.SelectedRows.Count == 0)
+            if (GridSeance?.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Veuillez sélectionner une séance.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            int idSeance = (int)GridSeance.SelectedRows[0].Cells["ID"].Value;
+            int? idSeance = (int?)GridSeance?.SelectedRows[0].Cells["ID"].Value;
             LoadInscriptions(idSeance);
         }
 
         private void BtnMarquerPresent_Click(object? sender, EventArgs e)
         {
-            if (GridInscri.SelectedRows.Count == 0)
+            if (GridInscri?.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Veuillez sélectionner un membre inscrit.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            int idUser = (int)GridInscri.SelectedRows[0].Cells["IdUser"].Value;
-            int idSeance = (int)GridInscri.SelectedRows[0].Cells["IdSeance"].Value;
+            int? idUser = (int?)GridInscri?.SelectedRows[0].Cells["IdUser"].Value;
+            int? idSeance = (int?)GridInscri?.SelectedRows[0].Cells["IdSeance"].Value;
 
             if (ASRep.MarquerPresence(idUser, idSeance, true))
             {
@@ -921,14 +922,14 @@ namespace Salle_Sport.Forms.Dashboards
 
         private void BtnMarquerAbsent_Click(object? sender, EventArgs e)
         {
-            if (GridInscri.SelectedRows.Count == 0)
+            if (GridInscri?.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Veuillez sélectionner un membre inscrit.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            int idUser = (int)GridInscri.SelectedRows[0].Cells["IdUser"].Value;
-            int idSeance = (int)GridInscri.SelectedRows[0].Cells["IdSeance"].Value;
+            int? idUser = (int?)GridInscri?.SelectedRows[0].Cells["IdUser"].Value;
+            int? idSeance = (int?)GridInscri?.SelectedRows[0].Cells["IdSeance"].Value;
 
             if (ASRep.MarquerPresence(idUser, idSeance, false))
             {
@@ -943,15 +944,15 @@ namespace Salle_Sport.Forms.Dashboards
 
         private void BtnSupprimerInscription_Click(object? sender, EventArgs e)
         {
-            if (GridInscri.SelectedRows.Count == 0)
+            if (GridInscri?.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Veuillez sélectionner un membre inscrit.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            int idUser = (int)GridInscri.SelectedRows[0].Cells["IdUser"].Value;
-            int idSeance = (int)GridInscri.SelectedRows[0].Cells["IdSeance"].Value;
-            string nom = GridInscri.SelectedRows[0].Cells["Nom"].Value?.ToString() ?? "";
+            int? idUser = (int?)GridInscri?.SelectedRows[0].Cells["IdUser"].Value;
+            int? idSeance = (int?)GridInscri?.SelectedRows[0].Cells["IdSeance"].Value;
+            string nom = GridInscri?.SelectedRows[0].Cells["Nom"].Value?.ToString() ?? "";
 
             var result = MessageBox.Show($"Êtes-vous sûr de vouloir supprimer l'inscription de {nom} ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 

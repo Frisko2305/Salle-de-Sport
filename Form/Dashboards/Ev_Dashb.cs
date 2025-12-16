@@ -11,17 +11,17 @@ namespace Salle_Sport.Forms.Dashboards
     {
         private User _currentUser;
         private EvRepository _evRepo;
-        private TableLayoutPanel mainLayout;
+        private TableLayoutPanel? mainLayout;
         /// <summary>Contrôle à onglets permettant de basculer entre les résultats de requêtes et les options de requêtes prédéfinies</summary>
-        private TabControl tabControl;
-        private Button btnDeconnexion;
-        private Label lblDerniereRequete;
+        private TabControl? tabControl;
+        private Button? btnDeconnexion;
+        private Label? lblDerniereRequete;
         /// <summary>Grille de données affichant les résultats des requêtes SQL ou statistiques exécutées</summary>
-        private DataGridView GridResult;
+        private DataGridView? GridResult;
         /// <summary>Panneau horizontal contenant les boutons de requêtes prédéfinies (statistiques, listes, etc.)</summary>
-        private FlowLayoutPanel flowButtons;
-        private Button btnRequeteSQL, btnSeancesInscrits, btnStatsActivites, btnStatsCoachs;
-        private Button btnTousUsers, btnStatutsDossiers, btnInscritsSeance;
+        private FlowLayoutPanel? flowButtons;
+        private Button? btnRequeteSQL, btnSeancesInscrits, btnStatsActivites, btnStatsCoachs;
+        private Button? btnTousUsers, btnStatutsDossiers, btnInscritsSeance;
 
         public Ev_Dashb(User user)
         {
@@ -136,7 +136,7 @@ namespace Salle_Sport.Forms.Dashboards
             layout.Controls.Add(GridResult, 0, 1);
             layout.Controls.Add(btnRafraichir, 0, 2);
             tabResultats.Controls.Add(layout);
-            tabControl.TabPages.Add(tabResultats);
+            tabControl?.TabPages.Add(tabResultats);
         }
 
         private void InitializeTabRequetes()
@@ -182,7 +182,7 @@ namespace Salle_Sport.Forms.Dashboards
             flowButtons.Controls.Add(btnInscritsSeance);
 
             tabRequetes.Controls.Add(flowButtons);
-            tabControl.TabPages.Add(tabRequetes);
+            tabControl?.TabPages.Add(tabRequetes);
         }
 
         private Button CreateQueryButton(string text)
@@ -315,7 +315,7 @@ namespace Salle_Sport.Forms.Dashboards
             {
                 var seances = _evRepo.GetSeancesAvecInscrits();
 
-                GridResult.DataSource = seances.Select(s => new
+                GridResult?.DataSource = seances.Select(s => new
                 {
                     ID = s.Seance.Id,
                     Date = s.Seance.DateHDebut.ToString("dd/MM/yyyy HH:mm"),
@@ -326,8 +326,8 @@ namespace Salle_Sport.Forms.Dashboards
                     Nb_Inscrits = s.NbInscrits
                 }).ToList();
 
-                lblDerniereRequete.Text = "Séances avec nombre d'inscrits";
-                tabControl.SelectedIndex = 0;
+                lblDerniereRequete?.Text = "Séances avec nombre d'inscrits";
+                tabControl?.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -341,15 +341,15 @@ namespace Salle_Sport.Forms.Dashboards
             {
                 var stats = _evRepo.GetStatistiquesActivites();
 
-                GridResult.DataSource = stats.Select(s => new
+                GridResult?.DataSource = stats.Select(s => new
                 {
                     Nom_Activité = s.NomActivite,
                     Nb_Séances = s.NbSeances,
                     Total_Inscrits = s.NbInscrits
                 }).ToList();
 
-                lblDerniereRequete.Text = "Statistiques par activité";
-                tabControl.SelectedIndex = 0;
+                lblDerniereRequete?.Text = "Statistiques par activité";
+                tabControl?.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -363,14 +363,14 @@ namespace Salle_Sport.Forms.Dashboards
             {
                 var stats = _evRepo.GetStatistiquesCoach();
 
-                GridResult.DataSource = stats.Select(s => new
+                GridResult?.DataSource = stats.Select(s => new
                 {
                     Nom_Coach = s.NomCoach,
                     Nb_Séances = s.NbSeances
                 }).ToList();
 
-                lblDerniereRequete.Text = "Statistiques par coach";
-                tabControl.SelectedIndex = 0;
+                lblDerniereRequete?.Text = "Statistiques par coach";
+                tabControl?.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -384,7 +384,7 @@ namespace Salle_Sport.Forms.Dashboards
             {
                 var users = _evRepo.GetTousUtilisateurs();
 
-                GridResult.DataSource = users.Select(u => new
+                GridResult?.DataSource = users.Select(u => new
                 {
                     ID = u.Id,
                     Nom = u.Nom,
@@ -392,8 +392,8 @@ namespace Salle_Sport.Forms.Dashboards
                     Rôle = u.Role
                 }).ToList();
 
-                lblDerniereRequete.Text = "Liste de tous les utilisateurs";
-                tabControl.SelectedIndex = 0;
+                lblDerniereRequete?.Text = "Liste de tous les utilisateurs";
+                tabControl?.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -407,7 +407,7 @@ namespace Salle_Sport.Forms.Dashboards
             {
                 var dossiers = _evRepo.GetStatutsDossiers();
 
-                GridResult.DataSource = dossiers.Select(d => new
+                GridResult?.DataSource = dossiers.Select(d => new
                 {
                     ID_User = d.IdUser,
                     Nom = d.User?.Nom,
@@ -417,8 +417,8 @@ namespace Salle_Sport.Forms.Dashboards
                     Motif_Ban = d.MotifBan ?? "-"
                 }).ToList();
 
-                lblDerniereRequete.Text = "Statuts des dossiers membres";
-                tabControl.SelectedIndex = 0;
+                lblDerniereRequete?.Text = "Statuts des dossiers membres";
+                tabControl?.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -500,7 +500,7 @@ namespace Salle_Sport.Forms.Dashboards
                             return;
                         }
 
-                        GridResult.DataSource = inscrits.Select(i => new
+                        GridResult?.DataSource = inscrits.Select(i => new
                         {
                             ID_User = i.IdUser,
                             Nom = i.User?.Nom,
@@ -510,8 +510,8 @@ namespace Salle_Sport.Forms.Dashboards
                             Présent = i.Present ? "Oui" : "Non"
                         }).ToList();
 
-                        lblDerniereRequete.Text = $"Inscrits pour la séance #{idSeance}";
-                        tabControl.SelectedIndex = 0;
+                        lblDerniereRequete?.Text = $"Inscrits pour la séance #{idSeance}";
+                        tabControl?.SelectedIndex = 0;
                         dialog.Close();
                     }
                     catch (Exception ex)
@@ -546,11 +546,11 @@ namespace Salle_Sport.Forms.Dashboards
                     DataTable dt = new DataTable();
                     dt.Load(reader);
 
-                    GridResult.DataSource = dt;
+                    GridResult?.DataSource = dt;
 
                     string queryPreview = query.Length > 50 ? query.Substring(0, 50) + "..." : query;
-                    lblDerniereRequete.Text = $"Requête personnalisée : {queryPreview}";
-                    tabControl.SelectedIndex = 0;
+                    lblDerniereRequete?.Text = $"Requête personnalisée : {queryPreview}";
+                    tabControl?.SelectedIndex = 0;
                 }
             }
         }

@@ -8,18 +8,17 @@ namespace Salle_Sport.Forms.Dashboards
         private User _currentUser;
         private Mb_Rep MbRep;
         
-        private Label lblWelcome, lblStatus;
-        private TableLayoutPanel MainLayout;
+        private Label? lblWelcome, lblStatus;
+        private TableLayoutPanel? MainLayout;
         
         /// <summary>Contrôle à onglets permettant de naviguer entre les séances disponibles, les inscriptions du membre et son profil</summary>
-        private TabControl tabControl;
+        private TabControl? tabControl;
         /// <summary>Onglets représentant respectivement : les séances disponibles à l'inscription, les inscriptions actuelles du membre, et son profil personnel</summary>
-        private TabPage tabSeanceDispo, tabMesSeances, tabMonProfil;
+        private TabPage? tabSeanceDispo, tabMesSeances, tabMonProfil;
         /// <summary>Grilles de données affichant respectivement : les séances disponibles et les inscriptions du membre</summary>
-        private DataGridView GridSeanceDispo, GridMesInscri;
+        private DataGridView? GridSeanceDispo, GridMesInscri;
         
-        private Button btnInscrire, btnActualiserDispo, btnMeDesinscrire, btnActualiserMesInscri, btnDeconnexion;
-
+        private Button? btnInscrire, btnActualiserDispo, btnMeDesinscrire, btnActualiserMesInscri, btnDeconnexion;
         public Mb_Dashb(User user)
         {
             _currentUser = user;
@@ -155,7 +154,7 @@ namespace Salle_Sport.Forms.Dashboards
             layout.Controls.Add(GridSeanceDispo, 0, 0);
             layout.Controls.Add(flowButtons, 0, 1);
 
-            tabSeanceDispo.Controls.Add(layout);
+            tabSeanceDispo?.Controls.Add(layout);
         }
 
         private void InitializeTabMesInscriptions()
@@ -212,7 +211,7 @@ namespace Salle_Sport.Forms.Dashboards
             layout.Controls.Add(GridMesInscri, 0, 0);
             layout.Controls.Add(flowButton, 0, 1);
 
-            tabMesSeances.Controls.Add(layout);            
+            tabMesSeances?.Controls.Add(layout);            
         }
 
         private void InitializeTabMonProfil()
@@ -275,7 +274,7 @@ namespace Salle_Sport.Forms.Dashboards
                             _currentUser.Prenom = txtPrenom.Text;
                             _currentUser.Email = txtEmail.Text;
                             _currentUser.Pwd = txtMdp.Text;
-                            lblWelcome.Text = $"Bienvenue, {_currentUser.Prenom} {_currentUser.Nom}!";
+                            lblWelcome?.Text = $"Bienvenue, {_currentUser.Prenom} {_currentUser.Nom}!";
                             this.Text = $"Espace Membre - {_currentUser.Prenom} {_currentUser.Nom}.";
                             MessageBox.Show("Vos informations ont été modifiées avec succès.", "Succès", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             txtMdp.Clear();
@@ -422,7 +421,7 @@ namespace Salle_Sport.Forms.Dashboards
             layout.SetColumnSpan(btnQuitter, 2);
             layout.Controls.Add(btnQuitter, 0, 7);
 
-            tabMonProfil.Controls.Add(layout);
+            tabMonProfil?.Controls.Add(layout);
         }
 
         private void LoadData()
@@ -437,8 +436,8 @@ namespace Salle_Sport.Forms.Dashboards
             {
                 var seances = MbRep.GetSeanceDispo();
 
-                GridSeanceDispo.DataSource = null;
-                GridSeanceDispo.DataSource = seances.Select( s => new
+                GridSeanceDispo?.DataSource = null;
+                GridSeanceDispo?.DataSource = seances.Select( s => new
                 {
                     Id = s.Id,
                     Date = s.DateHDebut.ToString("dd/MM/yyyy HH:mm"),
@@ -448,9 +447,9 @@ namespace Salle_Sport.Forms.Dashboards
                     Places = s.Cap_Max
                 }).ToList();
 
-                if(GridSeanceDispo.Columns["Id"] != null)
+                if(GridSeanceDispo?.Columns["Id"] != null)
                 {
-                    GridSeanceDispo.Columns["Id"].Visible = false;
+                    GridSeanceDispo?.Columns["Id"]?.Visible = false;
                 }
             }
             catch(Exception ex)
@@ -469,21 +468,21 @@ namespace Salle_Sport.Forms.Dashboards
             {
                 var inscription = MbRep.GetMyInscri_Seances(_currentUser.Id);
 
-                GridMesInscri.DataSource = null;
-                GridMesInscri.DataSource = inscription.Select( i => new
+                GridMesInscri?.DataSource = null;
+                GridMesInscri?.DataSource = inscription.Select( i => new
                 {
                     Id_Seance = i.IdSeance,
-                    Date = i.Seance.DateHDebut.ToString("dd/MM/yyyy HH:mm"),
-                    Ade = i.Seance.NomAde,
-                    Coach = i.Seance.NomCoach,
-                    Durée =$"{i.Seance.Duree} min",
+                    Date = i.Seance?.DateHDebut.ToString("dd/MM/yyyy HH:mm"),
+                    Ade = i.Seance?.NomAde,
+                    Coach = i.Seance?.NomCoach,
+                    Durée =$"{i.Seance?.Duree} min",
                     Inscrit_le = i.DateInsc.ToString("dd/MM/yyyy HH:mm"),
                     Présent = i.Present ? "Oui" : "Non"
                 }).ToList();
 
-                if(GridMesInscri.Columns["Id_Seance"] != null)
+                if(GridMesInscri?.Columns["Id_Seance"] != null)
                 {
-                    GridMesInscri.Columns["Id_Seance"].Visible = false;
+                    GridMesInscri?.Columns["Id_Seance"]?.Visible = false;
                 }
             }
             catch(Exception ex)
@@ -498,7 +497,7 @@ namespace Salle_Sport.Forms.Dashboards
 
         private void BtnInscrire_Click(object? sender, EventArgs e)
         {
-            if(GridSeanceDispo.SelectedRows.Count == 0)
+            if(GridSeanceDispo?.SelectedRows.Count == 0)
             {
                 MessageBox.Show ("Veuillez sélectionner une séance pour vous y inscrire.",
                 "Attention",
@@ -507,7 +506,7 @@ namespace Salle_Sport.Forms.Dashboards
                 return;
             }
 
-            int idSeance = Convert.ToInt32(GridSeanceDispo.SelectedRows[0].Cells["Id"].Value);
+            int idSeance = Convert.ToInt32(GridSeanceDispo?.SelectedRows[0].Cells["Id"].Value);
 
             var result = MessageBox.Show ($"Veuillez confirmer votre inscription à la séance sélectionnée.",
                 "Confirmation",
@@ -544,14 +543,14 @@ namespace Salle_Sport.Forms.Dashboards
 
         private void BtnMeDesinscrire_Click(object? sender, EventArgs e)
         {
-            if(GridMesInscri.SelectedRows.Count == 0)
+            if(GridMesInscri?.SelectedRows.Count == 0)
             {
                 MessageBox.Show ("Veuillez sélectionner une séance pour vous être désinscrit.",
                 "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             
-            int idSeance = Convert.ToInt32(GridMesInscri.SelectedRows[0].Cells["Id_Seance"].Value);
+            int idSeance = Convert.ToInt32(GridMesInscri?.SelectedRows[0].Cells["Id_Seance"].Value);
 
             var result = MessageBox.Show ($"Veuillez confirmer votre désinscription à la séance sélectionnée.",
                 "Confirmation",

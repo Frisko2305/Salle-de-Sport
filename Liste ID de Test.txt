@@ -1,0 +1,22 @@
+Pour utiliser différents profils lors de vos tests vous pouvez :
+
+Admins Principale:
+    Email : admin1@gym.com
+    Mdp : pass
+
+Admin Secondaire :
+    Email : staff1@gym.com
+    Mdp : pass
+
+Evaluateur :
+    Email : eval1@gym.com
+    Mdp : pass
+
+Membre :
+    Soit vos identifiants si vous avez choisi de créer un compte pour vous
+    Soit
+    Email : mb1@mail.com
+    Mdp : 1234
+
+Remarque :  En se déconnectant d'un profil Evaluateur, il y a une erreur non résolue qui empeche de se connecter à d'autre profils.
+            Il est alors recommandé de fermer l'application et de le relancer.

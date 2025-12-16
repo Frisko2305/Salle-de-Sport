@@ -7,19 +7,19 @@ namespace Salle_Sport.Forms.Dashboards
     {
         private User _currentUser;
         private AP_Rep APRep;
-        private Label lblWelcome;
-        private TableLayoutPanel MainLayout;
+        private Label? lblWelcome;
+        private TableLayoutPanel? MainLayout;
 
         /// <summary>Contrôle à onglets permettant de naviguer entre différentes vues (dossiers en attente, tous les membres, absents)</summary>
-        private TabControl tabControl;
+        private TabControl? tabControl;
         /// <summary>Onglets représentant respectivement : les dossiers en attente de validation, la liste complète des membres, et les membres absents</summary>
-        private TabPage tabDossiersAttente, tabTousMembres, tabMembresAbsents;
+        private TabPage? tabDossiersAttente, tabTousMembres, tabMembresAbsents;
         /// <summary>Grilles de données affichant respectivement : les dossiers en attente, tous les membres, et les membres absents</summary>
-        private DataGridView GridDossiersAttente, GridTousMembres, GridMbAbsents;
+        private DataGridView? GridDossiersAttente, GridTousMembres, GridMbAbsents;
 
         /// <summary>Liste déroulante permettant de filtrer les membres par statut (ACTIF, EN_ATTENTE, REFUSE, BANNI)</summary>
-        private ComboBox CbBoxFiltreStatut;
-        private Button btnValider, btnRefuser, btnActualiserAttente, btnBannir, btnDeconnexion, btnActualiserTous, btnActualiserAbsents, btnBannirAbsent;
+        private ComboBox? CbBoxFiltreStatut;
+        private Button? btnValider, btnRefuser, btnActualiserAttente, btnBannir, btnDeconnexion, btnActualiserTous, btnActualiserAbsents, btnBannirAbsent;
 
         public AP_Dashb(User user)
         {
@@ -158,7 +158,7 @@ namespace Salle_Sport.Forms.Dashboards
             layout.Controls.Add(GridDossiersAttente, 0, 0);
             layout.Controls.Add(flowButtons, 0, 1);
 
-            tabDossiersAttente.Controls.Add(layout);
+            tabDossiersAttente?.Controls.Add(layout);
         }
 
         private void InitializeTabTousMembres()
@@ -246,7 +246,7 @@ namespace Salle_Sport.Forms.Dashboards
             layout.Controls.Add(GridTousMembres, 0, 1);
             layout.Controls.Add(flowButtons, 0, 2);
 
-            tabTousMembres.Controls.Add(layout);
+            tabTousMembres?.Controls.Add(layout);
         }
 
         private void InitializeTabMembresAbsents()
@@ -303,7 +303,7 @@ namespace Salle_Sport.Forms.Dashboards
             layout.Controls.Add(GridMbAbsents, 0, 0);
             layout.Controls.Add(flowButtons, 0, 1);
 
-            tabMembresAbsents.Controls.Add(layout);
+            tabMembresAbsents?.Controls.Add(layout);
         }
 
         private void LoadData()
@@ -319,8 +319,8 @@ namespace Salle_Sport.Forms.Dashboards
             {
                 var dossiers = APRep.GetDossiersEnAttente();
 
-                GridDossiersAttente.DataSource = null;
-                GridDossiersAttente.DataSource = dossiers.Select(d => new
+                GridDossiersAttente?.DataSource = null;
+                GridDossiersAttente?.DataSource = dossiers.Select(d => new
                 {
                     ID = d.IdUser,
                     Nom = d.User?.Nom,
@@ -329,9 +329,9 @@ namespace Salle_Sport.Forms.Dashboards
                     Date_Création = d.DateCreatDossier.ToString("dd/MM/yyyy HH:mm")
                 }).ToList();
 
-                if (GridDossiersAttente.Columns["ID"] != null)
+                if (GridDossiersAttente?.Columns["ID"] != null)
                 {
-                    GridDossiersAttente.Columns["ID"].Visible = false;
+                    GridDossiersAttente?.Columns["ID"]?.Visible = false;
                 }
                     
             }
@@ -350,8 +350,8 @@ namespace Salle_Sport.Forms.Dashboards
             {
                 var membres = APRep.GetTousMembres();
 
-                GridTousMembres.DataSource = null;
-                GridTousMembres.DataSource = membres.Select(m => new
+                GridTousMembres?.DataSource = null;
+                GridTousMembres?.DataSource = membres.Select(m => new
                 {
                     ID = m.IdUser,
                     Nom = m.User?.Nom,
@@ -363,8 +363,8 @@ namespace Salle_Sport.Forms.Dashboards
                     Motif_Ban = m.MotifBan ?? "-"
                 }).ToList();
 
-                if (GridTousMembres.Columns["ID"] != null)
-                    GridTousMembres.Columns["ID"].Visible = false;
+                if (GridTousMembres?.Columns["ID"] != null)
+                    GridTousMembres?.Columns["ID"]?.Visible = false;
             }
             catch (Exception ex)
             {
@@ -381,8 +381,8 @@ namespace Salle_Sport.Forms.Dashboards
             {
                 var absents = APRep.GetMembresAbsents();
 
-                GridMbAbsents.DataSource = null;
-                GridMbAbsents.DataSource = absents.Select(u => new
+                GridMbAbsents?.DataSource = null;
+                GridMbAbsents?.DataSource = absents.Select(u => new
                 {
                     ID = u.Id,
                     Nom = u.Nom,
@@ -391,9 +391,9 @@ namespace Salle_Sport.Forms.Dashboards
                     Absences = "≥ 3"
                 }).ToList();
 
-                if (GridMbAbsents.Columns["ID"] != null)
+                if (GridMbAbsents?.Columns["ID"] != null)
                 {
-                    GridMbAbsents.Columns["ID"].Visible = false;
+                    GridMbAbsents?.Columns["ID"]?.Visible = false;
                 }
             }
             catch (Exception ex)
@@ -407,7 +407,7 @@ namespace Salle_Sport.Forms.Dashboards
 
         private void FiltrerParStatut()
         {
-            string filtre = CbBoxFiltreStatut.SelectedItem?.ToString() ?? "Tous";
+            string filtre = CbBoxFiltreStatut?.SelectedItem?.ToString() ?? "Tous";
 
             try
             {
@@ -418,8 +418,8 @@ namespace Salle_Sport.Forms.Dashboards
                     membres = membres.Where(m => m.Statut == filtre).ToList();
                 }
 
-                GridTousMembres.DataSource = null;
-                GridTousMembres.DataSource = membres.Select(m => new
+                GridTousMembres?.DataSource = null;
+                GridTousMembres?.DataSource = membres.Select(m => new
                 {
                     ID = m.IdUser,
                     Nom = m.User?.Nom,
@@ -431,9 +431,9 @@ namespace Salle_Sport.Forms.Dashboards
                     Motif_Ban = m.MotifBan ?? "-"
                 }).ToList();
 
-                if (GridTousMembres.Columns["ID"] != null)
+                if (GridTousMembres?.Columns["ID"] != null)
                 {
-                    GridTousMembres.Columns["ID"].Visible = false;
+                    GridTousMembres?.Columns["ID"]?.Visible = false;
                 }
             }
             catch (Exception ex)
@@ -447,7 +447,7 @@ namespace Salle_Sport.Forms.Dashboards
 
         private void BtnValider_Click(object? sender, EventArgs e)
         {
-            if (GridDossiersAttente.SelectedRows.Count == 0)
+            if (GridDossiersAttente?.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Veuillez sélectionner un dossier à valider.",
                     "Attention",
@@ -456,7 +456,7 @@ namespace Salle_Sport.Forms.Dashboards
                 return;
             }
 
-            int idUser = Convert.ToInt32(GridDossiersAttente.SelectedRows[0].Cells["ID"].Value);
+            int idUser = Convert.ToInt32(GridDossiersAttente?.SelectedRows[0].Cells["ID"].Value);
 
             var result = MessageBox.Show("Voulez-vous valider ce dossier ?",
                 "Confirmation",
@@ -498,7 +498,7 @@ namespace Salle_Sport.Forms.Dashboards
 
         private void BtnRefuser_Click(object? sender, EventArgs e)
         {
-            if (GridDossiersAttente.SelectedRows.Count == 0)
+            if (GridDossiersAttente?.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Veuillez sélectionner un dossier à refuser.",
                     "Attention",
@@ -507,7 +507,7 @@ namespace Salle_Sport.Forms.Dashboards
                 return;
             }
 
-            int idUser = Convert.ToInt32(GridDossiersAttente.SelectedRows[0].Cells["ID"].Value);
+            int idUser = Convert.ToInt32(GridDossiersAttente?.SelectedRows[0].Cells["ID"].Value);
 
             var result = MessageBox.Show("Voulez-vous refuser ce dossier ?",
                 "Confirmation", 
@@ -549,7 +549,7 @@ namespace Salle_Sport.Forms.Dashboards
 
         private void BtnBannir_Click(object? sender, EventArgs e)
         {
-            if (GridTousMembres.SelectedRows.Count == 0)
+            if (GridTousMembres?.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Veuillez sélectionner un membre à bannir.",
                     "Attention",
@@ -558,8 +558,8 @@ namespace Salle_Sport.Forms.Dashboards
                 return;
             }
 
-            int idUser = Convert.ToInt32(GridTousMembres.SelectedRows[0].Cells["ID"].Value);
-            string statut = GridTousMembres.SelectedRows[0].Cells["Statut"].Value.ToString();
+            int idUser = Convert.ToInt32(GridTousMembres?.SelectedRows[0].Cells["ID"].Value);
+            string? statut = GridTousMembres?.SelectedRows[0]?.Cells["Statut"]?.Value?.ToString();
 
             if (statut == "BAN")
             {
@@ -668,7 +668,7 @@ namespace Salle_Sport.Forms.Dashboards
 
         private void BtnBannirAbsent_Click(object? sender, EventArgs e)
         {
-            if (GridMbAbsents.SelectedRows.Count == 0)
+            if (GridMbAbsents?.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Veuillez sélectionner un membre à bannir.",
                     "Attention",
@@ -677,7 +677,7 @@ namespace Salle_Sport.Forms.Dashboards
                 return;
             }
 
-            int idUser = Convert.ToInt32(GridMbAbsents.SelectedRows[0].Cells["ID"].Value);
+            int idUser = Convert.ToInt32(GridMbAbsents?.SelectedRows[0].Cells["ID"].Value);
 
             Form dialogBan = new Form
             {

@@ -14,7 +14,7 @@ namespace Salle_Sport.Data.Repositories
         /// <param name="email">Adresse email de l'utilisateur</param>
         /// <param name="pwd">Mot de passe de l'utilisateur (non haché)</param>
         /// <returns>L'objet User si les identifiants sont corrects, null sinon</returns>
-        public User? Login(string email, string pwd)
+        public User? Login(string? email, string? pwd)
         {
             User? foundUser = null;
 

@@ -5,13 +5,13 @@ namespace Salle_Sport.Forms
 {
     public class RegisterForm : Form
     {
-        private TableLayoutPanel MainLayout;
-        private Label lblTitre;
-        private Label lblEmail, lblPwd, lblNom, lblPrenom;
-        private TextBox txtEmail, txtPwd, txtNom, txtPrenom;
-         private Label lblStatus;
-        private Button btnRegister;
-        private LinkLabel lnkLogin;
+        private TableLayoutPanel? MainLayout;
+        private Label? lblTitre;
+        private Label? lblEmail, lblPwd, lblNom, lblPrenom;
+        private TextBox? txtEmail, txtPwd, txtNom, txtPrenom;
+         private Label? lblStatus;
+        private Button? btnRegister;
+        private LinkLabel? lnkLogin;
         private AuthRepository _authRepository;
 
         public RegisterForm()
@@ -179,53 +179,53 @@ namespace Salle_Sport.Forms
 
         private void BtnRegister_Click(object? sender, EventArgs e)
         {
-            lblStatus.Text = "";
+            lblStatus?.Text = "";
 
-            if(string.IsNullOrWhiteSpace(txtEmail.Text))
+            if(string.IsNullOrWhiteSpace(txtEmail?.Text))
             {
-                lblStatus.Text = "L'email est obligatoire.";
-                lblStatus.ForeColor = Color.Red;
-                txtEmail.Focus();
+                lblStatus?.Text = "L'email est obligatoire.";
+                lblStatus?.ForeColor = Color.Red;
+                txtEmail?.Focus();
                 return;
             }
 
             if(!txtEmail.Text.Contains("@") || !txtEmail.Text.Contains("."))
             {
-                lblStatus.Text = "Format d'email invalide.";
-                lblStatus.ForeColor = Color.Red;
-                txtEmail.Focus();
+                lblStatus?.Text = "Format d'email invalide.";
+                lblStatus?.ForeColor = Color.Red;
+                txtEmail?.Focus();
                 return;
             }
 
-            if(string.IsNullOrWhiteSpace(txtPwd.Text))
+            if(string.IsNullOrWhiteSpace(txtPwd?.Text))
             {
-                lblStatus.Text = "Le mot de passe est obligatoire.";
-                lblStatus.ForeColor = Color.Red;
-                txtPwd.Focus();
+                lblStatus?.Text = "Le mot de passe est obligatoire.";
+                lblStatus?.ForeColor = Color.Red;
+                txtPwd?.Focus();
                 return;
             }
 
             if(txtPwd.Text.Length < 10 || !txtPwd.Text.Any(char.IsDigit))
             {
-                lblStatus.Text = "Le mot de passe doit contenir au moins 10 caractères dont 1 caractère spéciale.";
-                lblStatus.ForeColor = Color.Red;
-                txtPwd.Focus();
+                lblStatus?.Text = "Le mot de passe doit contenir au moins 10 caractères dont 1 caractère spéciale.";
+                lblStatus?.ForeColor = Color.Red;
+                txtPwd?.Focus();
                 return;
             }
 
-            if(string.IsNullOrWhiteSpace(txtNom.Text))
+            if(string.IsNullOrWhiteSpace(txtNom?.Text))
             {
-                lblStatus.Text = "Le nom est obligatoire.";
-                lblStatus.ForeColor = Color.Red;
-                txtNom.Focus();
+                lblStatus?.Text = "Le nom est obligatoire.";
+                lblStatus?.ForeColor = Color.Red;
+                txtNom?.Focus();
                 return;
             }
 
-            if(string.IsNullOrWhiteSpace(txtPrenom.Text))
+            if(string.IsNullOrWhiteSpace(txtPrenom?.Text))
             {
-                lblStatus.Text = "Le prénom est obligatoire. ";
-                lblStatus.ForeColor = Color.Red;
-                txtPrenom.Focus();
+                lblStatus?.Text = "Le prénom est obligatoire. ";
+                lblStatus?.ForeColor = Color.Red;
+                txtPrenom?.Focus();
                 return;
             };
 
@@ -238,8 +238,8 @@ namespace Salle_Sport.Forms
                 Role = "Mb"
             };
 
-            btnRegister.Enabled = false;
-            btnRegister.Text = "Inscription en cours...";
+            btnRegister?.Enabled = false;
+            btnRegister?.Text = "Inscription en cours...";
 
             try
             {
@@ -247,8 +247,8 @@ namespace Salle_Sport.Forms
 
                 if(success)
                 {
-                    lblStatus.Text = "Inscription Réussie !";
-                    lblStatus.ForeColor = Color.Green;
+                    lblStatus?.Text = "Inscription Réussie !";
+                    lblStatus?.ForeColor = Color.Green;
 
                     MessageBox.Show(
                         "Votre compte a été créé avec succès !\n\n" +
@@ -264,10 +264,10 @@ namespace Salle_Sport.Forms
             }
             catch(Exception ex)
             {
-                lblStatus.Text = "Erreur technique";
-                lblStatus.ForeColor = Color.Red;
-                btnRegister.Enabled = true;
-                btnRegister.Text = "S'inscrire";
+                lblStatus?.Text = "Erreur technique";
+                lblStatus?.ForeColor = Color.Red;
+                btnRegister?.Enabled = true;
+                btnRegister?.Text = "S'inscrire";
 
                 MessageBox.Show(
                     $"Un erreur est survenue : \n\n{ex.Message}",

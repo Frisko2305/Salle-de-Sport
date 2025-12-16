@@ -107,7 +107,7 @@ namespace Salle_Sport.Data.Repositories
         /// </summary>
         /// <param name="idActivite">ID de l'activité à supprimer</param>
         /// <returns>true si la suppression a réussi, false en cas d'erreur</returns>
-        public bool SupprimerActivite(int idActivite)
+        public bool SupprimerActivite(int? idActivite)
         {
             try
             {
@@ -231,7 +231,7 @@ namespace Salle_Sport.Data.Repositories
         /// </summary>
         /// <param name="idCoach">ID du coach à supprimer</param>
         /// <returns>true si la suppression a réussi, false en cas d'erreur</returns>
-        public bool SupprimerCoach(int idCoach)
+        public bool SupprimerCoach(int? idCoach)
         {
             try
             {
@@ -376,7 +376,7 @@ namespace Salle_Sport.Data.Repositories
         /// </summary>
         /// <param name="idSeance">ID de la séance à supprimer</param>
         /// <returns>true si la suppression a réussi, false en cas d'erreur</returns>
-        public bool SupprimerSeance(int idSeance)
+        public bool SupprimerSeance(int? idSeance)
         {
             try
             {
@@ -406,7 +406,7 @@ namespace Salle_Sport.Data.Repositories
         /// <param name="idSeance">ID de la séance</param>
         /// <param name="present">true si présent, false si absent</param>
         /// <returns>true si la mise à jour a réussi, false en cas d'erreur</returns>
-        public bool MarquerPresence(int idUser, int idSeance, bool present)
+        public bool MarquerPresence(int? idUser, int? idSeance, bool present)
         {
             try
             {
@@ -438,7 +438,7 @@ namespace Salle_Sport.Data.Repositories
         /// </summary>
         /// <param name="idSeance">ID de la séance</param>
         /// <returns>Liste des inscriptions avec informations des membres inscrits</returns>
-        public List<Inscri_Seance> GetInscriptionsPourSeance(int idSeance)
+        public List<Inscri_Seance> GetInscriptionsPourSeance(int? idSeance)
         {
             List<Inscri_Seance> inscriptions = new List<Inscri_Seance>();
 
@@ -488,7 +488,7 @@ namespace Salle_Sport.Data.Repositories
         /// <param name="idUser">ID de l'utilisateur</param>
         /// <param name="idSeance">ID de la séance</param>
         /// <returns>true si la suppression a réussi, false en cas d'erreur</returns>
-        public bool SupprimerInscription(int idUser, int idSeance)
+        public bool SupprimerInscription(int? idUser, int? idSeance)
         {
             try
             {
