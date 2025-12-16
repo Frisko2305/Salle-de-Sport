@@ -176,14 +176,14 @@ GRANT UPDATE (present) ON Inscri_Seance TO 'R_AS';
 
 CREATE ROLE 'R_Mb';
 GRANT INSERT (Nom, Prenom, email, mdp) ON Utilisateur TO 'R_Mb';
-GRANT SELECT ON Utilisateur TO 'R_Mb';
+GRANT SELECT, INSERT ON Utilisateur TO 'R_Mb';
 GRANT UPDATE (Nom, Prenom, email, mdp) ON Utilisateur TO 'R_Mb';
 GRANT SELECT ON Dossier_Mb TO 'R_Mb';
 GRANT EXECUTE ON PROCEDURE JeQuitte TO 'R_Mb';
 GRANT SELECT ON Seance TO 'R_Mb';
 GRANT SELECT ON Activite TO 'R_Mb';
 GRANT SELECT (id_Coach, Nom, Prenom, Spécialité) ON Coach TO 'R_Mb';
-GRANT SELECT, DELETE ON Inscri_Seance TO 'R_Mb';
+GRANT SELECT, DELETE, INSERT ON Inscri_Seance TO 'R_Mb';
 GRANT INSERT (id_user, id_seance) ON Inscri_Seance TO 'R_Mb';
 
 CREATE ROLE 'R_Ev';

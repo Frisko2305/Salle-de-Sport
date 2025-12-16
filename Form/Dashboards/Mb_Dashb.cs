@@ -12,7 +12,7 @@ namespace Salle_Sport.Forms.Dashboards
         private TableLayoutPanel MainLayout;
         
         private TabControl tabControl;
-        private TabPage tabSeanceDispo, tabMesSeances;
+        private TabPage tabSeanceDispo, tabMesSeances, tabMonProfil;
         private DataGridView GridSeanceDispo, GridMesInscri;
         
         private Button btnInscrire, btnActualiserDispo, btnMeDesinscrire, btnActualiserMesInscri, btnDeconnexion;
@@ -78,9 +78,11 @@ namespace Salle_Sport.Forms.Dashboards
 
             tabSeanceDispo = new TabPage("Séances Disponibles");
             tabMesSeances = new TabPage("Mes Inscriptions");
+            tabMonProfil = new TabPage("Mon Profil");
 
             tabControl.TabPages.Add(tabSeanceDispo);
             tabControl.TabPages.Add(tabMesSeances);
+            tabControl.TabPages.Add(tabMonProfil);
 
             MainLayout.Controls.Add(lblWelcome, 0, 0);
             MainLayout.Controls.Add(btnDeconnexion, 1, 0);
@@ -90,6 +92,7 @@ namespace Salle_Sport.Forms.Dashboards
 
             InitializeTabSeancesDispo();
             InitializeTabMesInscriptions();
+            InitializeTabMonProfil();
 
             this.Controls.Add(MainLayout);
         }
@@ -207,6 +210,216 @@ namespace Salle_Sport.Forms.Dashboards
             layout.Controls.Add(flowButton, 0, 1);
 
             tabMesSeances.Controls.Add(layout);            
+        }
+
+        private void InitializeTabMonProfil()
+        {
+            TableLayoutPanel layout = new TableLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                RowCount = 8,
+                ColumnCount = 2,
+                Padding = new Padding(30)
+            };
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 70F));
+            layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
+            layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 70F));
+
+            Label lblNom = new Label { Text = "Nom :", Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft, Font = new Font("Segoe UI", 10F, FontStyle.Bold) };
+            TextBox txtNom = new TextBox { Dock = DockStyle.Fill, Text = _currentUser.Nom, Font = new Font("Segoe UI", 10F) };
+
+            Label lblPrenom = new Label { Text = "Prénom :", Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft, Font = new Font("Segoe UI", 10F, FontStyle.Bold) };
+            TextBox txtPrenom = new TextBox { Dock = DockStyle.Fill, Text = _currentUser.Prenom, Font = new Font("Segoe UI", 10F) };
+
+            Label lblEmail = new Label { Text = "Email :", Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft, Font = new Font("Segoe UI", 10F, FontStyle.Bold) };
+            TextBox txtEmail = new TextBox { Dock = DockStyle.Fill, Text = _currentUser.Email, Font = new Font("Segoe UI", 10F) };
+
+            Label lblMdp = new Label { Text = "Mot de passe :", Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft, Font = new Font("Segoe UI", 10F, FontStyle.Bold) };
+            TextBox txtMdp = new TextBox { Dock = DockStyle.Fill, UseSystemPasswordChar = true, Font = new Font("Segoe UI", 10F) };
+
+            Button btnModifier = new Button
+            {
+                Text = "Modifier mes informations",
+                Dock = DockStyle.Fill,
+                Height = 40,
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold)
+            };
+            btnModifier.Click += (s, e) =>
+            {
+                if (string.IsNullOrWhiteSpace(txtNom.Text) || string.IsNullOrWhiteSpace(txtPrenom.Text) || 
+                    string.IsNullOrWhiteSpace(txtEmail.Text) || string.IsNullOrWhiteSpace(txtMdp.Text))
+                {
+                    MessageBox.Show("Tous les champs sont obligatoires.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var result = MessageBox.Show("Voulez-vous vraiment modifier vos informations ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        bool success = MbRep.ModifierProfil(_currentUser.Id, txtNom.Text, txtPrenom.Text, txtEmail.Text, txtMdp.Text);
+                        if (success)
+                        {
+                            _currentUser.Nom = txtNom.Text;
+                            _currentUser.Prenom = txtPrenom.Text;
+                            _currentUser.Email = txtEmail.Text;
+                            _currentUser.Pwd = txtMdp.Text;
+                            lblWelcome.Text = $"Bienvenue, {_currentUser.Prenom} {_currentUser.Nom}!";
+                            this.Text = $"Espace Membre - {_currentUser.Prenom} {_currentUser.Nom}.";
+                            MessageBox.Show("Vos informations ont été modifiées avec succès.", "Succès", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            txtMdp.Clear();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Erreur lors de la modification.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Erreur technique : {ex.Message}", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            };
+
+            Panel separator = new Panel { Dock = DockStyle.Fill, BorderStyle = BorderStyle.Fixed3D, Height = 2 };
+
+            Button btnQuitter = new Button
+            {
+                Text = "Je quitte la salle",
+                Width = 300,
+                Height = 50,
+                Anchor = AnchorStyles.None,
+                Font = new Font("Segoe UI", 11F, FontStyle.Bold),
+                BackColor = Color.FromArgb(220, 53, 69),
+                ForeColor = Color.White
+            };
+            btnQuitter.Click += (s, e) =>
+            {
+                Form dialogConfirm = new Form
+                {
+                    Text = "Confirmation",
+                    Size = new Size(500, 250),
+                    StartPosition = FormStartPosition.CenterParent,
+                    FormBorderStyle = FormBorderStyle.FixedDialog,
+                    MaximizeBox = false,
+                    MinimizeBox = false
+                };
+
+                TableLayoutPanel dialogLayout = new TableLayoutPanel
+                {
+                    Dock = DockStyle.Fill,
+                    RowCount = 3,
+                    ColumnCount = 1,
+                    Padding = new Padding(15)
+                };
+                dialogLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
+                dialogLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+                dialogLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+
+                Label lblWarning = new Label
+                {
+                    Text = "ATTENTION",
+                    Dock = DockStyle.Fill,
+                    Font = new Font("Segoe UI", 14F, FontStyle.Bold),
+                    ForeColor = Color.Red,
+                    TextAlign = ContentAlignment.MiddleCenter
+                };
+
+                Label lblMessage = new Label
+                {
+                    Text = "Êtes-vous sûr de vouloir quitter la salle ?\n\nCette action est irréversible.\n\n" +
+                           "Votre dossier sera marqué comme 'QUIT' et vos inscriptions futures seront supprimées.",
+                    Dock = DockStyle.Fill,
+                    Font = new Font("Segoe UI", 10F),
+                    TextAlign = ContentAlignment.MiddleCenter
+                };
+
+                FlowLayoutPanel panelButtons = new FlowLayoutPanel
+                {
+                    Dock = DockStyle.Fill,
+                    FlowDirection = FlowDirection.RightToLeft,
+                    Padding = new Padding(5)
+                };
+
+                Button btnConfirmer = new Button
+                {
+                    Text = "Confirmer",
+                    Width = 120,
+                    Height = 40,
+                    BackColor = Color.FromArgb(220, 53, 69),
+                    ForeColor = Color.White,
+                    Font = new Font("Segoe UI", 10F, FontStyle.Bold)
+                };
+
+                Button btnAnnuler = new Button
+                {
+                    Text = "Annuler",
+                    Width = 120,
+                    Height = 40,
+                    Font = new Font("Segoe UI", 10F)
+                };
+
+                btnConfirmer.Click += (sender, args) =>
+                {
+                    try
+                    {
+                        bool success = MbRep.JeQuitteLaSalle(_currentUser.Id);
+                        if (success)
+                        {
+                            MessageBox.Show("Vous avez quitté la salle. Votre dossier a été mis à jour.\n\nVous allez être déconnecté.", 
+                                          "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            dialogConfirm.Close();
+                            BtnDeconnexion_Click(null, EventArgs.Empty);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Erreur lors de la procédure.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Erreur technique : {ex.Message}", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                };
+
+                btnAnnuler.Click += (sender, args) => dialogConfirm.Close();
+
+                panelButtons.Controls.Add(btnConfirmer);
+                panelButtons.Controls.Add(btnAnnuler);
+
+                dialogLayout.Controls.Add(lblWarning, 0, 0);
+                dialogLayout.Controls.Add(lblMessage, 0, 1);
+                dialogLayout.Controls.Add(panelButtons, 0, 2);
+
+                dialogConfirm.Controls.Add(dialogLayout);
+                dialogConfirm.ShowDialog(this);
+            };
+
+            layout.Controls.Add(lblNom, 0, 0);
+            layout.Controls.Add(txtNom, 1, 0);
+            layout.Controls.Add(lblPrenom, 0, 1);
+            layout.Controls.Add(txtPrenom, 1, 1);
+            layout.Controls.Add(lblEmail, 0, 2);
+            layout.Controls.Add(txtEmail, 1, 2);
+            layout.Controls.Add(lblMdp, 0, 3);
+            layout.Controls.Add(txtMdp, 1, 3);
+            layout.SetColumnSpan(btnModifier, 2);
+            layout.Controls.Add(btnModifier, 0, 4);
+            // Row 5 = espace vide (Percent 100F)
+            layout.SetColumnSpan(separator, 2);
+            layout.Controls.Add(separator, 0, 6);
+            layout.SetColumnSpan(btnQuitter, 2);
+            layout.Controls.Add(btnQuitter, 0, 7);
+
+            tabMonProfil.Controls.Add(layout);
         }
 
         private void LoadData()

@@ -8,7 +8,7 @@ namespace Salle_Sport.Forms
         private TableLayoutPanel MainLayout;
         private Label lblTitre;
         private Label lblEmail, lblPwd, lblNom, lblPrenom;
-        private TextBox txtEmail, txtPwd, TextBox, txtNom, txtPrenom;
+        private TextBox txtEmail, txtPwd, txtNom, txtPrenom;
          private Label lblStatus;
         private Button btnRegister;
         private LinkLabel lnkLogin;

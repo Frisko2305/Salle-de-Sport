@@ -172,6 +172,35 @@ namespace Salle_Sport.Data.Repositories
             return statut;
         }
 
+        public bool ModifierProfil(int idUser, string nom, string prenom, string email, string mdp)
+        {
+            try
+            {
+                using (var conn = Database.GetConnection())
+                {
+                    conn.Open();
+                    string query = @"UPDATE Utilisateur 
+                                     SET Nom = @nom, Prenom = @prenom, email = @email, mdp = @mdp 
+                                     WHERE id_User = @idUser";
+
+                    using (var cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@idUser", idUser);
+                        cmd.Parameters.AddWithValue("@nom", nom);
+                        cmd.Parameters.AddWithValue("@prenom", prenom);
+                        cmd.Parameters.AddWithValue("@email", email);
+                        cmd.Parameters.AddWithValue("@mdp", mdp);
+                        return cmd.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"ERROR MODIFIER PROFIL : {ex.Message}");
+                return false;
+            }
+        }
+
         public bool JeQuitteLaSalle(int idUser)
         {
             try
